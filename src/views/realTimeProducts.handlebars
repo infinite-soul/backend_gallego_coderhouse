@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Productos en tiempo real</title>
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1 class="text-center">Productos en tiempo real</h1>
+        <ul class="list-group">
+            {{#each products}}
+            <li class="list-group-item">
+                <div class="row">
+                    <div class="col">
+                        <h4><strong>Name:</strong> {{this.title}}</h4>
+                        <p><strong>Price:</strong> {{this.price}}</p>
+                        <p><strong>Description:</strong> {{this.description}}</p>
+                    </div>
+                    <div class="col">
+                        <img class="img-thumbnail" src="{{this.thumbnail}}" alt="Thumbnail">
+                    </div>
+                </div>
+            </li>
+            {{/each}}
+        </ul>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        const socket = io();
+
+
+        socket.on('updateProducts', (products) => {
+            const productList = document.querySelector('ul');
+            productList.innerHTML = '';
+
+
+            products.forEach((product) => {
+                const li = document.createElement('li');
+                li.classList.add('list-group-item');
+
+                const row = document.createElement('div');
+                row.classList.add('row');
+
+                const col1 = document.createElement('div');
+                col1.classList.add('col');
+                const name = document.createElement('h4');
+                name.innerHTML = `<strong>Name:</strong> ${product.title}`;
+                const price = document.createElement('p');
+                price.innerHTML = `<strong>Price:</strong> ${product.price}`;
+                const description = document.createElement('p');
+                description.innerHTML = `<strong>Description:</strong> ${product.description}`;
+
+                col1.appendChild(name);
+                col1.appendChild(price);
+                col1.appendChild(description);
+
+                const col2 = document.createElement('div');
+                col2.classList.add('col');
+                const thumbnail = document.createElement('img');
+                thumbnail.classList.add('img-thumbnail');
+                thumbnail.src = product.thumbnail;
+                thumbnail.alt = 'Thumbnail';
+
+                col2.appendChild(thumbnail);
+
+                row.appendChild(col1);
+                row.appendChild(col2);
+
+                li.appendChild(row);
+                productList.appendChild(li);
+            });
+        });
+    </script>
+</body>
+
+</html>

@@ -36,14 +36,15 @@ router.post('/', validateFields, async (req, res) => {
     }
 });
 
-router.put('/:id', validateFields, (req, res) => {
+router.put('/:id', validateFields, async (req, res) => {
     try {
-        const updatedProduct = productManager.updateProduct(parseInt(req.params.id), req.body);
+        const updatedProduct = await productManager.updateProduct(parseInt(req.params.id), req.body);
         res.send({ status: 'success', payload: updatedProduct });
     } catch (error) {
         console.error(error);
         res.status(500).send({ status: 'error', error: 'Error interno del servidor' });
     }
 });
+
 
 module.exports = router;

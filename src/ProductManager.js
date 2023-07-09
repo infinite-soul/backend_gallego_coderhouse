@@ -7,6 +7,10 @@ class ProductManager {
         this.loadProductsFromFile();
     }
 
+    setProducts(products) {
+        this.products = products;
+    }
+
     async loadProductsFromFile() {
         try {
             const fileData = await fs.readFile('products.json', 'utf8');
@@ -79,7 +83,7 @@ class ProductManager {
         }
     }
 
-    updateProduct(productId, productData) {
+    async updateProduct(productId, productData) {
         const product = this.products.find(p => p.id === productId);
         if (product) {
             for (const key in productData) {
@@ -87,13 +91,13 @@ class ProductManager {
                     product[key] = productData[key];
                 }
             }
-            this.saveProductsToFile(); // Guardar los cambios en el archivo
+            await this.saveProductsToFile();
             return { ...product, code: product.code };
         } else {
             throw new Error('Producto no encontrado');
         }
     }
-    
+
 
     deleteProduct(productId) {
         const productIndex = this.products.findIndex(p => p.id === productId);

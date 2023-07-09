@@ -54,21 +54,22 @@ class ProductManager {
 
     async createProduct(productData) {
         try {
-            const { stock, title, description, price, thumbnail } = productData;
+            const { title, description, price, stock, category, thumbnails = [], status = true } = productData;
             const code = await this.generateRandomCode();
 
             const newProduct = {
                 id: this.products.length + 1,
-                stock,
                 title,
                 description,
-                price,
-                thumbnail: [thumbnail],
                 code,
+                price,
+                status,
+                stock,
+                category,
+                thumbnails: Array.isArray(thumbnails) ? thumbnails : [thumbnails],
             };
 
             this.products.push(newProduct);
-
             await this.saveProductsToFile();
 
             return { ...newProduct, code };
@@ -81,17 +82,18 @@ class ProductManager {
     updateProduct(productId, productData) {
         const product = this.products.find(p => p.id === productId);
         if (product) {
-            product.stock = productData.stock;
-            product.title = productData.title;
-            product.description = productData.description;
-            product.price = productData.price;
-            product.thumbnail = [productData.thumbnail];
-
+            for (const key in productData) {
+                if (key !== 'id') {
+                    product[key] = productData[key];
+                }
+            }
+            this.saveProductsToFile(); // Guardar los cambios en el archivo
             return { ...product, code: product.code };
         } else {
             throw new Error('Producto no encontrado');
         }
     }
+    
 
     deleteProduct(productId) {
         const productIndex = this.products.findIndex(p => p.id === productId);

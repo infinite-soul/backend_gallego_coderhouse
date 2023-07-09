@@ -3,9 +3,9 @@
     "id": 1,
     "code": "mdEsX4mw3N",
     "stock": 5,
-    "title": "Res",
-    "description": "8 slices Beef\n12 florets Broccoli\n1 Packet Potatoes\n1 Packet Carrots\n140g plain flour\n4 Eggs\n200ml milk\ndrizzle (for cooking) sunflower oil",
-    "price": 2000,
+    "title": "asdf",
+    "description": "modificación random después de poner el titulo asdf, también voy a toquetear el price cambiando a 2999",
+    "price": 2999,
     "thumbnail": "https://www.themealdb.com/images/media/meals/ursuup1487348423.jpg"
   },
   {
@@ -16,7 +16,7 @@
     "description": "4 chicken breasts\n1/4 cup olive oil\n1 tablespoon lemon juice\n1 tablespoon minced garlic\n1 teaspoon dried oregano\n1 teaspoon dried basil\n1/2 teaspoon salt\n1/4 teaspoon black pepper",
     "price": 1800,
     "thumbnail": "https://www.themealdb.com/images/media/meals/sypxpx1515365095.jpg"
-},
+  },
   {
     "id": 3,
     "code": "Gn3kXwAp45",
@@ -99,5 +99,16 @@
       "https://www.themealdb.com/images/media/meals/wruvqv1511880994.jpg"
     ],
     "code": "7LU544GWuh"
+  },
+  {
+    "id": 12,
+    "title": "Producto de ejemplo",
+    "description": "Este es un producto de ejemplo",
+    "code": "jtYWNBZRPR",
+    "price": 12345,
+    "status": true,
+    "stock": 10,
+    "category": "Comida",
+    "thumbnails": []
   }
 ]

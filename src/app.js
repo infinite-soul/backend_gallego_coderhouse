@@ -6,6 +6,9 @@ const socketIO = require('socket.io');
 const ProductManager = require('./ProductManager.js');
 const productRouter = require('./ProductRouter.js');
 const fs = require('fs').promises;
+const configDB = require("./db/configDB.js");
+
+
 
 const app = express();
 const server = http.createServer(app);
@@ -13,6 +16,8 @@ const io = socketIO(server);
 const productManager = new ProductManager();
 
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }))
+
 
 app.engine('handlebars', handlebars());
 app.set('view engine', 'handlebars');

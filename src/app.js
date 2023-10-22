@@ -3,11 +3,11 @@ const handlebars = require('express-handlebars');
 const path = require('path');
 const http = require('http');
 const socketIO = require('socket.io');
-const ProductManager = require('./ProductManager.js');
-const productRouter = require('./ProductRouter.js');
+const ProductManager = require('./dao/fileSystem/ProductManager.js');
+const productRouter = require('./routers/ProductRouter.js');
 const fs = require('fs').promises;
-const configDB = require("./db/configDB.js");
-
+const configDB = require("./dao/db/configDB.js");
+const productsModel = require('./dao/db/models/products.model.js')
 
 
 const app = express();

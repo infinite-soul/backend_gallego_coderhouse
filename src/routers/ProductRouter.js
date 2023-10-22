@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const ProductManager = require('./ProductManager');
-const { validateCreateFields, validateUpdateFields } = require('./middlewares');
+const ProductManager = require('../dao/fileSystem/ProductManager');
+const { validateCreateFields, validateUpdateFields } = require('../middlewares');
 
 const productManager = new ProductManager();
 

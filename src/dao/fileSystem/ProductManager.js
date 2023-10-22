@@ -1,5 +1,5 @@
 const fs = require('fs').promises;
-const { productsModel } = require("./db/models/products.model");
+const { productsModel } = require("../db/models/products.model");
 const crypto = require('crypto');
 
 class ProductManager {

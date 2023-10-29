@@ -1,0 +1,70 @@
+<h1 style="display: flex; justify-content: center;"> Bienvenido {{userName}} </h1>
+
+
+<h2 style="display: flex; justify-content: center;">Lista de Productos</h2>
+<div></div>
+
+<table class="table table-striped table-bordered">
+    <thead class="bg-primary text-white">
+        <tr>
+            <th scope="col">Código</th>
+            <th scope="col">Título</th>
+            <th scope="col">Descripción</th>
+            <th scope="col">Precio</th>
+            <th scope="col">Stock</th>
+            <th scope="col">Categoría</th>
+
+        </tr>
+    </thead>
+    <tbod>
+        {{#each productsMap}}
+        <tr>
+            <td>{{this.code}}</td>
+            <td>{{this.title}}</td>
+            <td>{{this.description}}</td>
+            <td>{{this.price}}</td>
+            <td>{{this.stock}}</td>
+            <td>{{this.category}}</td>
+
+        </tr>
+        {{/each}}
+    </tbod>
+</table>
+
+<div class="d-flex justify-content-center mt-3">
+    {{#if hasPrevPage}}
+    <a class="btn btn-primary btn-block mb-3" href="{{prevPage}}">Anterior</a>
+    {{/if}}
+
+    {{#if hasNextPage}}
+    <a class="btn btn-primary btn-block mb-3" href="{{nextPage}}">Siguiente</a>
+    {{/if}}
+</div>
+
+
+
+<div class="d-flex justify-content-center mt-3">
+    <p>Página {{page}} de {{totalPages}}</p>
+</div>
+
+
+<section style="display: flex; justify-content: center" class="mt-5">
+    <button class="btn btn-danger" onclick="location.href='/logout'">Log out</button>
+</section>
+
+
+<br>
+
+
+<pre>userName: {{{userName}}} </pre>
+<pre>userLastName: {{{userLastName}}} </pre>
+<pre>userAge: {{{userAge}}} </pre>
+<pre>userEmail: {{{userEmail}}} </pre>
+<pre>userExists: {{userExists}}</pre>
+<pre>hasPrevPage: {{hasPrevPage}}</pre>
+<pre>hasNextPage: {{hasNextPage}}</pre>
+<pre>limit: {{limit}}</pre>
+<pre>prevPage: {{prevPage}}</pre>
+<pre>nextPage: {{nextPage}}</pre>
+<pre>page: {{page}}</pre>
+<pre>totalPages: {{totalPages}}</pre>

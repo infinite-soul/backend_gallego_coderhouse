@@ -1,3 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <title>Mi Aplicación</title>
+    <style>
+        .navbar {
+            position: relative;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .menu-panel {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: #1f1f1f;
+            min-width: 160px;
+            z-index: 1;
+        }
+        .menu-panel.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <h1>Bienvenido {{userName}}</h1>
+        <button class="hamburger-btn" onclick="toggleMenu()">☰</button>
+        <div class="menu-panel" id="menuPanel">
+            <div class="user-menu">
+                <div class="user-details">
+                    <i class="fas fa-user"></i>
+                    <span>Nombre de usuario: {{userName}}</span>
+                </div>
+                <div class="user-details">
+                    <i class="fas fa-user"></i>
+                    <span>Apellido de usuario: {{userLastName}}</span>
+                </div>
+                <div class="user-details">
+                    <i class="fas fa-user"></i>
+                    <span>Edad de usuario: {{userAge}}</span>
+                </div>
+                <div class="user-details">
+                    <i class="fas fa-envelope"></i>
+                    <span>Correo electrónico: {{userEmail}}</span>
+                </div>
+                <div class="user-details">
+                    <i class="fas fa-check-circle"></i>
+                    <span>Usuario existe: {{userExists}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h2>Lista de Productos</h2>
+
 <h1 style="display: flex; justify-content: center;"> Bienvenido {{userName}} </h1>
 
 
@@ -48,23 +110,20 @@
 </div>
 
 
-<section style="display: flex; justify-content: center" class="mt-5">
-    <button class="btn btn-danger" onclick="location.href='/logout'">Log out</button>
+<section style="display: flex; justify-content: center" class="mt-4">
+    <button class="btn btn-primary btn-block mb-3" onclick="location.href='/logout'">Cerrar sesion</button>
 </section>
 
+<script type='text/javascript'>
+function toggleMenu() {
+    var menuPanel = document.getElementById("menuPanel");
+    if (menuPanel.style.display === "none") {
+        menuPanel.style.display = "block";
+    } else {
+        menuPanel.style.display = "none";
+    }
+}
+</script>
 
-<br>
-
-
-<pre>userName: {{{userName}}} </pre>
-<pre>userLastName: {{{userLastName}}} </pre>
-<pre>userAge: {{{userAge}}} </pre>
-<pre>userEmail: {{{userEmail}}} </pre>
-<pre>userExists: {{userExists}}</pre>
-<pre>hasPrevPage: {{hasPrevPage}}</pre>
-<pre>hasNextPage: {{hasNextPage}}</pre>
-<pre>limit: {{limit}}</pre>
-<pre>prevPage: {{prevPage}}</pre>
-<pre>nextPage: {{nextPage}}</pre>
-<pre>page: {{page}}</pre>
-<pre>totalPages: {{totalPages}}</pre>
+</body>
+</html>

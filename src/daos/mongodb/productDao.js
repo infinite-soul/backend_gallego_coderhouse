@@ -1,6 +1,6 @@
 import { ProductModel } from "./models/productModel.js";
 
-export const getProducts = async (page = 1, limit = 10, sort, filter, filterValue) => {
+export const getProducts = async (page = 1, limit = 5, sort, filter, filterValue) => {
     try {
         const filterOptions = filter && filterValue ? { [filter]: { $regex: filterValue, $options: 'i' } } : {};
 

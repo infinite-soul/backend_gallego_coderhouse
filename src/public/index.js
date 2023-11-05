@@ -19,11 +19,11 @@ if (!username) {
             if (!value) return 'Si no me dices tu nombre, ¡hay tabla!'
         }
     })
-    .then((input) => {
-        username = input.value;
-        socket.emit('newUser', username);
-        enableSendMessage();
-    });
+        .then((input) => {
+            username = input.value;
+            socket.emit('newUser', username);
+            enableSendMessage();
+        });
 }
 
 btn.addEventListener('click', () => {
@@ -50,7 +50,7 @@ socket.on('newUser', (user) => {
         position: "right",
         stopOnFocus: true,
         style: {
-            background: "linear-gradient(to right, #00b09b, #96c93d)",
+            background: "linear-gradient(to right, #464d4d, #363b3b)",
         },
     }).showToast();
 });

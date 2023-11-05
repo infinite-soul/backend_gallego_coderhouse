@@ -1,4 +1,4 @@
-import { UserModel } from "../daos/mongodb/models/userModel.js";
+import UserModel from "../daos/mongodb/models/userModel.js";
 import * as userServices from "../services/userServices.js";
 
 export const registerUserC = async (req, res) => {
@@ -18,7 +18,6 @@ export const loginUserC = async (req, res) => {
     const user = await UserModel.findOne ({email})
 
     req.session.user = user
-
     console.log('req.session' + req.session);
 
     if (userExist) {

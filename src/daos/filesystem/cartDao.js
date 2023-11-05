@@ -83,14 +83,12 @@ export const saveProductToCart = async (idCartNum, idProductNum) => {
         );
   
         if (prodIdIndex > -1) {
-          // El producto ya existe en el carrito, incrementar la cantidad
           cartsFile[cartIdIndex].products[prodIdIndex].quantity++;
         } else {
-          // El producto no existe en el carrito, agregarlo
           cartsFile[cartIdIndex].products.push(cartProd);
         }
   
-        // Escribir el arreglo de carritos actualizado en el archivo
+
         await fs.promises.writeFile(pathFile, JSON.stringify(cartsFile));
   
         return cartsFile;

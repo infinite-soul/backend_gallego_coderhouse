@@ -1,52 +1,49 @@
 import express from 'express';
-import { __dirname } from './utils.js';
+import { __dirname, mongoStoreParameters } from './utils.js';
 import { errorHandler } from './middlewares/errorHandler.js';
 import handlebars from 'express-handlebars';
 import { Server } from 'socket.io';
 import MongoStore from 'connect-mongo';
-import { connectionString } from './daos/mongodb/conection.js';
 import cookieParser from 'cookie-parser';
 import session from 'express-session';
 import userSession from "./daos/mongodb/userDao.js";
-import morgan from 'morgan'
-import './daos/mongodb/conection.js'
-
+import morgan from 'morgan';
+import './daos/mongodb/conection.js';
+import './passport/passport-local.js';
+import './passport/passport-github.js';
 import productRouter from './routes/productRoutes.js';
 import cartRouter from './routes/cartRoutes.js';
 import viewsRouter from './routes/viewsRoutes.js';
 import userRouter from './routes/userRoutes.js';
+import * as servChat from '../src/services/chatServices.js';
+import { addProduct, deleteProduct, getProducts } from './daos/mongodb/productDao.js';
+import passport from 'passport';
+
+
+// Constantes
+const PORT = 8080;
+const PUBLIC_DIR = __dirname + '/public';
+const VIEWS_DIR = __dirname + '/views';
 
 // Configuración de la aplicación
 const app = express();
+
+// Middlewares
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static(__dirname + '/public'));
+app.use(express.static(PUBLIC_DIR));
 app.use(errorHandler);
 app.use(morgan('dev'));
-app.use(userSession);
 
 // Configuración de Handlebars
 app.engine('handlebars', handlebars.engine());
 app.set('view engine', 'handlebars');
-app.set('views', __dirname + '/views');
+app.set('views', VIEWS_DIR);
 
-// Configuración de la sesión
-const mongoStoreOptions = {
-    store: MongoStore.create({
-        mongoUrl: connectionString,
-        crypto: {
-            secret: '1234'
-        }
-    }),
-    secret: '1234',
-    resave: false,
-    saveUninitialized: false,
-    cookie: {
-        maxAge: 60000
-    }
-};
 app.use(cookieParser());
-app.use(session(mongoStoreOptions));
+app.use(session(mongoStoreParameters));
+app.use(passport.initialize());
+app.use(passport.session());
 
 // Rutas
 app.use('/api/products', productRouter);
@@ -55,13 +52,8 @@ app.use('/', viewsRouter);
 app.use('/api/users', userRouter);
 
 // Configuración del servidor y Socket.io
-const PORT = 8080;
 const httpServer = app.listen(PORT, () => console.log(`Servidor en el puerto ${PORT}`));
 const socketServer = new Server(httpServer);
-
-// Importaciones para Socket.io
-import * as servChat from '../src/services/chatServices.js'
-import { addProduct, deleteProduct, getProducts } from './daos/mongodb/productDao.js';
 
 // Eventos de Socket.io
 socketServer.on('connection', async (socket) => {

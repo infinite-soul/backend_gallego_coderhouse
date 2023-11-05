@@ -11,4 +11,6 @@ role: {type: String, default: 'user'}
 
 })
 
-export const UserModel = model ('user', userSchema )
+const UserModel = model("User", userSchema);
+
+export default UserModel;

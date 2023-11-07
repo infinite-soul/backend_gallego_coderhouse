@@ -24,7 +24,7 @@ const login = async (req, email, password, done) => {
         const user = { email, password };
         const userLogin = await loginUser(user);
 
-        if (!userLogin) return done(null, false, { message: "Login failed" });
+        if (!userLogin) return done(null, false, { message: "Login falló" });
         return done(null, userLogin);
     } catch (error) {
         console.log(error);

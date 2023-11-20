@@ -1,11 +1,12 @@
 import { Strategy as GithubStrategy } from "passport-github2";
 import passport from "passport";
 import { getUserByEmail, registerUser } from "../daos/mongodb/userDao.js";
+import 'dotenv/config'
 
 const strategyOptions = {
-    clientID: "c42219a25560526ea4f5",
-    clientSecret: "dbd59ce9a2d98928572c42504fec55e6ab713b8a",
-    callbackURL: "http://localhost:8080/api/users/profile-github",
+    clientID: process.env.GITHUB_CLIENT_ID,
+    clientSecret: process.env.GITHUB_CLIENT_SECRET,
+    callbackURL: process.env.GITHUB_CALLBACK_URL,
     scope: "user:email",
 };
 

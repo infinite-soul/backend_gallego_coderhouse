@@ -1,16 +1,24 @@
-import { Schema, model} from "mongoose"
+import mongoose from 'mongoose';
 
-const userSchema = new Schema ({
+const { Schema, model } = mongoose;
 
-first_name: {type: String, required: true},
-last_name: {type: String, required: true},
-email: {type: String, required: true, unique: true},
-age: {type: Number, required: true},
-password: {type: String, required: true },
-role: {type: String, default: 'user'}
+const cartSchema = new Schema({
+    CartID: {
+        type: Schema.Types.ObjectId,
+        ref: 'carts',
+        required: true,
+    },
+}, { _id: false });
 
-})
+const userSchema = new Schema({
+    first_name: { type: String, required: true },
+    last_name: { type: String, required: true },
+    email: { type: String, required: true, unique: true },
+    age: { type: Number, required: true, default: 0 },
+    password: { type: String, required: true },
+    role: { type: String, default: 'user' },
+    isGithub: { type: Boolean, default: false },
+    cart: { type: [cartSchema], default: [] },
+}, { timestamps: true });
 
-const UserModel = model("User", userSchema);
-
-export default UserModel;
+export const UserModel = model('user', userSchema);

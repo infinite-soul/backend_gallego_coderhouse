@@ -1,5 +1,6 @@
-import UserModel from './models/userModel.js'; // Importa el modelo de usuario
-import { createHash, isValidPassword } from '../../utils.js'; // Importa funciones de hash y validación
+import { createHash, isValidPassword } from "../../utils.js";
+import { createCart } from "./cartDao.js";
+import { UserModel } from "./models/userModel.js";
 
 export const registerUser = async (user) => {
     try {
@@ -11,20 +12,21 @@ export const registerUser = async (user) => {
             return false;
         }
 
-        const isAdmin = password === "abc123" && email === "adminCoder@coder.com";
-        const role = isAdmin ? "admin" : "user";
+        const newCart = await createCart();
+        const role = (password === "esAdmin" && email === "esadmincoder@coderhouse.com") ? "admin" : "user";
 
         const newUser = await UserModel.create({
             ...user,
             password: createHash(password),
             role,
+            cart: [{ CartID: newCart.id }]
         });
 
         console.log(`Usuario ${newUser.email} creado`);
         return newUser;
+
     } catch (error) {
         console.error(error);
-        throw error;
     }
 };
 
@@ -33,14 +35,14 @@ export const loginUser = async (user) => {
         const { email, password } = user;
         const userExist = await getUserByEmail(email);
 
-        if (!userExist || !isValidPassword(password, userExist)) {
+        if (userExist && isValidPassword(password, userExist)) {
+            return userExist;
+        } else {
+            console.log("Inicio de sesión fallido");
             return false;
         }
-
-        return userExist;
     } catch (error) {
         console.error(error);
-        throw error;
     }
 };
 
@@ -50,7 +52,6 @@ export const getUserByID = async (id) => {
         return userExist || false;
     } catch (error) {
         console.error(error);
-        throw error;
     }
 };
 
@@ -60,15 +61,7 @@ export const getUserByEmail = async (email) => {
         return userExist || false;
     } catch (error) {
         console.error(error);
-        throw error;
+        throw new Error(error);
     }
 };
 
-export const userSession = (req, res, next) => {
-    if (req.session && req.session.user) {
-        res.locals.user = req.session.user;
-    }
-    next();
-};
-
-export default userSession;

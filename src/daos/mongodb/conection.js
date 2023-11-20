@@ -1,8 +1,7 @@
 import mongoose from 'mongoose';
+import 'dotenv/config'
 
-//const connectionString = 'mongodb://localhost:27017/backend-coderhouse';
-
-export const connectionString = 'mongodb+srv://lordchingzo:coderhouse@product.n09ozpk.mongodb.net/';
+export const connectionString = process.env.MONGO_ATLAS_URL; 
 
 try {
     await mongoose.connect(connectionString)

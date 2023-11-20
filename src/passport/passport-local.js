@@ -10,12 +10,17 @@ const strategyOptions = {
 
 const register = async (req, email, password, done) => {
     try {
-        const user = await getUserByEmail(email);
-        if (user) return done(null, false);
+        if (await getUserByEmail(email)) {
+            console.log("El usuario ya existe");
+            return done(null, false);
+        }
+
         const newUser = await registerUser(req.body);
+        console.log(`Usuario ${newUser.email} creado`);
         return done(null, newUser);
     } catch (error) {
-        console.log(error);
+        console.error(error);
+        return done(error);
     }
 };
 
@@ -24,10 +29,15 @@ const login = async (req, email, password, done) => {
         const user = { email, password };
         const userLogin = await loginUser(user);
 
-        if (!userLogin) return done(null, false, { message: "Login falló" });
+        if (!userLogin) {
+            console.log("Inicio de sesión fallido");
+            return done(null, false);
+        }
+
         return done(null, userLogin);
     } catch (error) {
-        console.log(error);
+        console.error(error);
+        return done(error);
     }
 };
 
@@ -42,6 +52,11 @@ passport.serializeUser((user, done) => {
 });
 
 passport.deserializeUser(async (id, done) => {
-    const user = await getUserByID(id);
-    return done(null, user);
+    try {
+        const user = await getUserByID(id);
+        done(null, user);
+    } catch (error) {
+        console.error(error);
+        done(error);
+    }
 });

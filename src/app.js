@@ -6,7 +6,7 @@ import { Server } from 'socket.io';
 import MongoStore from 'connect-mongo';
 import cookieParser from 'cookie-parser';
 import session from 'express-session';
-import userSession from "./daos/mongodb/userDao.js";
+import "./daos/mongodb/userDao.js";
 import morgan from 'morgan';
 import './daos/mongodb/conection.js';
 import './passport/passport-local.js';
@@ -18,10 +18,10 @@ import userRouter from './routes/userRoutes.js';
 import * as servChat from '../src/services/chatServices.js';
 import { addProduct, deleteProduct, getProducts } from './daos/mongodb/productDao.js';
 import passport from 'passport';
-
+import 'dotenv/config'
 
 // Constantes
-const PORT = 8080;
+const PORT = process.env.PORT;
 const PUBLIC_DIR = __dirname + '/public';
 const VIEWS_DIR = __dirname + '/views';
 

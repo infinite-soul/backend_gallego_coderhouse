@@ -21,5 +21,7 @@ router.get('/products', isAuth , getproductPaginate);
 
 router.get('/api/sessions/current', isAuth , current )
 
+router.get('/main', isAuth , getproductPaginate);
+
 
 export default router;

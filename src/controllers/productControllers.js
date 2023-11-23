@@ -1,5 +1,6 @@
 import { getUserByID } from "../daos/mongodb/userDao.js";
 import * as service from "../services/productServices.js";
+import { isAuth } from "../middlewares/auth.js";
 
 const renderPage = (pageName) => async (req, res, next) => {
   try {
@@ -51,9 +52,10 @@ export const getproductPaginate = async (req, res, next) => {
       filter,
       filterValue
     );
+  
 
-    const productsMap = response.docs.map((product) => product.toObject());
     const user = (await getUserByID(req.session.passport.user)).toObject();
+    const productsMap = response.docs.map((product) => product.toObject());
 
     if (req.session) {
       res.status(200).render("products", {

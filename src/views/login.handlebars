@@ -29,6 +29,11 @@
                 <div class="text-center">
                     <p>¿No eres miembro? <a href="/register">Registrarse</a></p>
                 </div>
+                {{#if error}}
+                <div class="alert alert-danger" role="alert">
+                    {{{error}}}
+                </div>
+                {{/if}}
             </div>
         </div>
     </div>

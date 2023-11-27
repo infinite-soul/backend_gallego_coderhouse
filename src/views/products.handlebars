@@ -13,29 +13,29 @@
 </head>
 <body>
     <div class="navbar">
-        <h1>Bienvenido {{userName}}</h1>
+        <h1>Bienvenido {{user.first_name}}</h1>
         <button class="hamburger-btn" onclick="toggleMenu()">☰</button>
         <div class="menu-panel" id="menuPanel">
             <div class="user-menu">
                 <div class="user-details">
                     <i class="fas fa-user"></i>
-                    <span>Nombre de usuario: {{userName}}</span>
+                    <span>Nombre de usuario: {{user.first_name}}</span>
                 </div>
                 <div class="user-details">
                     <i class="fas fa-user"></i>
-                    <span>Apellido de usuario: {{userLastName}}</span>
+                    <span>Apellido de usuario: {{user.last_name}}</span>
                 </div>
                 <div class="user-details">
                     <i class="fas fa-user"></i>
-                    <span>Edad de usuario: {{userAge}}</span>
+                    <span>Edad de usuario: {{user.age}}</span>
                 </div>
                 <div class="user-details">
                     <i class="fas fa-envelope"></i>
-                    <span>Correo electrónico: {{userEmail}}</span>
+                    <span>Correo electrónico: {{user.email}}</span>
                 </div>
                 <div class="user-details">
                     <i class="fas fa-check-circle"></i>
-                    <span>Usuario existe: {{userExists}}</span>
+                    <span>Usuario existe: {{user.exists}}</span>
                 </div>
             </div>
         </div>
@@ -43,7 +43,7 @@
 
     <h2>Lista de Productos</h2>
 
-<h1 style="display: flex; justify-content: center;"> Bienvenido {{userName}} </h1>
+<h1 style="display: flex; justify-content: center;"> Bienvenido {{user.first_name}} </h1>
 
 
 <h2 style="display: flex; justify-content: center;">Lista de Productos</h2>

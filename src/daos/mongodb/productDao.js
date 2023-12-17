@@ -15,7 +15,7 @@ export const getProducts = async (page = 1, limit = 5, sort, filter, filterValue
 
         const response = await ProductModel.paginate({}, options);
 
-        console.log('productDao ok');
+        // console.log('productDao ok');
         return response;
     } catch (error) {
         console.log(error);

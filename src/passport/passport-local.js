@@ -1,44 +1,53 @@
 import passport from "passport";
 import { Strategy as LocalStrategy } from "passport-local";
-import { getUserByEmail, getUserByID, loginUser, registerUser } from "../daos/mongodb/userDao.js";
+import {
+  getUserByEmail,
+  getUserByID,
+  registerUser,
+} from "../persistance/daos/mongodb/userDaoMongo.js";
+import { generateToken } from "../jwt/auth.js";
+import { HttpResponse } from "../utils/http.response.js";
+import { mailOptionsGmailLoginOk, transporterGmail } from "../services/emailServices.js";
+import error from "../utils/errors.dictionary.js";
+
+const httpResponse = new HttpResponse();
 
 const strategyOptions = {
-    usernameField: "email",
-    passwordField: "password",
-    passReqToCallback: true,
+  usernameField: "email",
+  passwordField: "password",
+  passReqToCallback: true,
 };
 
 const register = async (req, email, password, done) => {
-    try {
-        if (await getUserByEmail(email)) {
-            console.log("El usuario ya existe");
-            return done(null, false);
-        }
-
-        const newUser = await registerUser(req.body);
-        console.log(`Usuario ${newUser.email} creado`);
-        return done(null, newUser);
-    } catch (error) {
-        console.error(error);
-        return done(error);
-    }
+  try {
+    const user = await getUserByEmail(email);
+    if (user) return done(null, false);
+    const newUser = await registerUser(req.body);
+    return done(null, newUser);
+  } catch (error) {
+    console.error(error);
+    return done(error);
+  }
 };
 
 const login = async (req, email, password, done) => {
-    try {
-        const user = { email, password };
-        const userLogin = await loginUser(user);
+  try {
+    const token = await loginUserServices(req.body);
 
-        if (!userLogin) {
-            console.log("Inicio de sesión fallido");
-            return done(null, false);
-        }
-
-        return done(null, userLogin);
-    } catch (error) {
-        console.error(error);
-        return done(error);
+    if (!token) {
+      return done(null, false, error.USER_CREDENTIALS);
     }
+
+    const userEmail = req.body.email;
+    const userName = await getUserByEmail(userEmail);
+
+    await transporterGmail.sendMail(mailOptionsGmailLoginOk(userEmail, userName));
+
+    return done(null, { token });
+  } catch (error) {
+    console.error(error);
+    return done(error);
+  }
 };
 
 const registerStrategy = new LocalStrategy(strategyOptions, register);
@@ -48,15 +57,15 @@ passport.use("login", loginStrategy);
 passport.use("register", registerStrategy);
 
 passport.serializeUser((user, done) => {
-    done(null, user._id);
+  done(null, user._id);
 });
 
 passport.deserializeUser(async (id, done) => {
-    try {
-        const user = await getUserByID(id);
-        done(null, user);
-    } catch (error) {
-        console.error(error);
-        done(error);
-    }
+  try {
+    const user = await getUserByID(id);
+    return done(null, user);
+  } catch (error) {
+    console.error(error);
+    return done(error);
+  }
 });

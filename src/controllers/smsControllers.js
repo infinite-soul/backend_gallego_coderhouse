@@ -1,16 +1,20 @@
-import config from "../config.js";
+import config from "../utils/config.js";
 import { twilioClient } from "../services/smsServices.js";
+import { HttpResponse } from "../utils/http.response.js";
 
-export const sendSMS = async(req, res)=>{
+const httpResponse = new HttpResponse();
+
+export const sendSMS = async (req, res, next) => {
     try {
-        const message = {
-            body: req.body.message,
+        const { message, dest } = req.body;
+        const twilioMessage = {
+            body: message,
             from: config.TWILIO_PHONE,
-            to: req.body.dest
+            to: dest
         };
-        const response = await twilioClient.messages.create(message);
-        res.json(response);
+        const response = await twilioClient.messages.create(twilioMessage);
+        return httpResponse.Ok(res, response);
     } catch (error) {
-        console.log(error);
+        next(error.message);
     }
-}
+};

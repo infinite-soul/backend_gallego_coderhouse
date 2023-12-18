@@ -1,99 +1,59 @@
-import { cleanCart, createCart, deleteProductInCart, getCart, getCartById, saveProductToCart, updateCart, updateQuantityInCart } from "../daos/mongodb/cartDao.js";
+import {
+    cleanCart,
+    createCart,
+    deleteProductInCart,
+    getCart,
+    getCartById,
+    saveProductToCart,
+    updateCart,
+    updateQuantityInCart,
+    generateTicket
+} from "../persistance/daos/mongodb/cartDaoMongo.js";
 
+const executeService = async (func, ...args) => {
+    try {
+        const result = await func(...args);
+        return result;
+    } catch (error) {
+        throw new Error(error.message);
+    }
+};
 
 export const getCartService = async () => {
-
-    try {
-        const cart = await getCart()
-        return cart
-    } catch (error) {
-        console.log(error);
-    }
-
-}
+    return executeService(getCart);
+};
 
 export const getCartByIdService = async (id) => {
-
-    try {
-        const cart = await getCartById(id)
-        if (!cart) { return false; }
-        else { return cart; }
-    } catch (error) {
-        console.log(error);
-    }
-
-}
+    const cart = await executeService(getCartById, id);
+    return cart || false;
+};
 
 export const createCartService = async () => {
-
-    try {
-        const cart = await createCart()
-        if (!cart) { return false; }
-        else { return true; }
-    } catch (error) {
-        console.log(error);
-    }
-
-}
+    const cart = await executeService(createCart);
+    return cart || false;
+};
 
 export const saveProductToCartService = async (id, productId) => {
-
-    try {
-        const cart = await saveProductToCart(id, productId)
-        return cart
-    } catch (error) {
-        console.log(error);
-    }
-
-}
-
+    return executeService(saveProductToCart, id, productId);
+};
 
 export const deleteProductInCartService = async (id, productId) => {
-
-    try {
-        const cart = await deleteProductInCart(id, productId)
-
-        return cart
-
-    } catch (error) {
-        console.log(error);
-    }
-
-}
-
-
+    return executeService(deleteProductInCart, id, productId);
+};
 
 export const cleanCartService = async (id) => {
-
-    try {
-        const cart = await cleanCart(id)
-        return cart
-    } catch (error) {
-        console.log(error);
-    }
-}
-
+    return executeService(cleanCart, id);
+};
 
 export const updateQuantityInCartService = async (id, productId, quantity) => {
-
-    try {
-        const cart = await updateQuantityInCart(id, productId, quantity);
-        return cart
-    } catch (error) {
-        console.log(error);
-    }
-
-}
-
-
+    return executeService(updateQuantityInCart, id, productId, quantity);
+};
 
 export const updateCartService = async (id, obj) => {
+    return executeService(updateCart, id, obj);
+};
 
-    try {
-        const cart = await updateCart (id, obj);
-        return cart
-    } catch (error) {
-        console.log(error);
-    }
-
-}
+export const generateTicketService = async (userID, cartID) => {
+    const ticket = await executeService(generateTicket, userID, cartID);
+    return ticket || false;
+};

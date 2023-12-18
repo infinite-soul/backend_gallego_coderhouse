@@ -1,36 +1,51 @@
-import { getUserByID } from "../daos/mongodb/userDao.js";
+import { getUserByID } from "../persistance/daos/mongodb/userDaoMongo.js";
+import { HttpResponse } from "../utils/http.response.js";
+import error from "../utils/errors.dictionary.js";
 
-const renderView = (view) => async (req, res, next) => {
+export const register = async (req, res, next) => {
   try {
-    res.render(view);
+    res.render("register");
   } catch (error) {
-    console.error('Error al renderizar la vista:', error.message);
-    next(error);
+    next(error.message);
   }
 };
 
-export const register = renderView("register");
-export const errorRegister = renderView("errorRegister");
-export const login = renderView("login");
-export const errorLogin = renderView("errorLogin");
+export const errorRegister = async (req, res, next) => {
+  try {
+    res.render("errorRegister");
+  } catch (error) {
+    next(error.message);
+  }
+};
+
+export const login = async (req, res, next) => {
+  try {
+    res.render("login");
+  } catch (error) {
+    next(error.message);
+  }
+};
+
+export const errorLogin = async (req, res, next) => {
+  try {
+    res.render("errorLogin");
+  } catch (error) {
+    next(error.message);
+  }
+};
 
 export const current = async (req, res, next) => {
   try {
-    if (req.session && req.session.passport && req.session.passport.user) {
-      const user = await getUserByID(req.session.passport.user);
-      if (user) {
-        res.render("current", { user: user.toObject() });
-      } else {
-        console.error('Usuario no encontrado');
-        res.render("login");
-      }
+    const userExists = req.session;
+
+    if (userExists) {
+      const userID = await getUserByID(req.session.passport.user);
+      const user = userID.toObject();
+      res.render("current", { user });
     } else {
-      console.log('Sesión no iniciada');
-      res.render("login");
+      res.redirect("/login"); 
     }
   } catch (error) {
-    console.error('Error al obtener el usuario actual:', error.message);
-    next(error);
+    next(error.message);
   }
 };
-

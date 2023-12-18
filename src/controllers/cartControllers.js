@@ -1,129 +1,112 @@
-import * as service from '../services/cartServices.js'
-import { getUserByID } from "../persistance/daos/mongodb/userDao.js";
-import { createResponse } from "../utils.js";
+import * as cartService from '../services/cartServices.js';
+import { getUserByID } from "../persistance/daos/mongodb/userDaoMongo.js";
+import { HttpResponse } from "../utils/http.response.js";
+import error from "../utils/errors.dictionary.js";
 
-export const getCart = async (req,res,next) => {
+const httpResponse = new HttpResponse();
 
-    try {        
-        const data = await service.getCartService()
-        res.status(200).json(data)
-    } catch (error) {
-        next(error.message)
+const sendHttpResponse = (res, data, errorMessage) => {
+    if (!data) {
+        return httpResponse.NotFound(res, errorMessage);
     }
-}
+    return httpResponse.Ok(res, data);
+};
 
-
-export const getCartById = async (req,res,next) => {
-
+export const getCart = async (req, res, next) => {
     try {
-        const { id } = req.params
-        const cart = await service.getCartByIdService (id)
-        if (!cart) res.status(404).json ({ message: 'Carrito no encontrado'})
-        else res.status(200).json (cart)
+        const data = await cartService.getCartService();
+        sendHttpResponse(res, { 'cart ': data }, error.CART_NOT_FOUND);
     } catch (error) {
-        next(error.message)
+        next(error.message);
     }
-}
+};
 
-
-export const createCart = async (req,res,next) => {
-
+export const getCartById = async (req, res, next) => {
     try {
-
-        const cart = await service.createCartService ()
-        if (!cart) req.status(404).json({ message: 'Falló la creación del carrito' })
-        else res.status(200).json ({ message: 'Carrito creado'})
-        
+        const { id } = req.params;
+        const cart = await cartService.getCartByIdService(id);
+        sendHttpResponse(res, { cart }, error.CART_NOT_FOUND);
     } catch (error) {
-        next(error.message)
+        next(error.message);
     }
-}
+};
 
-
-export const saveProductCart = async (req,res,next) => {
-
-    try {        
-        const { id, productId } = req.params
-        const cart = await service.saveProductCartService ( id, productId )
-        res.status(200).json({ message: 'Producto guardado'})
-    } catch (error) {
-        next(error.message)
-    }
-}
-
-
-export const deleteProductCart = async (req,res,next) => {
-
+export const createCart = async (req, res, next) => {
     try {
-        const { id, productId } = req.params
-        const cart = await service.deleteProductCartService (id, productId)
-        res.status(200).json({ message: 'Producto eliminado', cart})
+        const cart = await cartService.createCartService();
+        sendHttpResponse(res, { cart }, error.CART_NOT_CREATED);
     } catch (error) {
-        next(error.message)
+        next(error.message);
     }
-}
+};
 
+export const saveProductToCart = async (req, res, next) => {
+    try {
+        const { id, productId } = req.params;
+        const cart = await cartService.saveProductToCartService(id, productId);
+        sendHttpResponse(res, { cart }, error.CART_NOT_UPDATED);
+    } catch (error) {
+        next(error.message);
+    }
+};
+
+export const deleteProductInCart = async (req, res, next) => {
+    try {
+        const { id, productId } = req.params;
+        const cart = await cartService.deleteProductInCartService(id, productId);
+        sendHttpResponse(res, { cart }, error.CART_NOT_DELETED);
+    } catch (error) {
+        next(error.message);
+    }
+};
 
 export const cleanCart = async (req, res, next) => {
-
-    try {        
-        const {id} = req.params        
-        const cart = await service.cleanCartService (id)
-        res.status(200).json({ message: 'Carrito vaciado', cart})
-    } catch (error) {
-        next(error.message)
-    }
-}
-
-
-export const updateQuantityCart = async (req,res,next) => {
-
     try {
-        
-        const { id, productId } = req.params
-        const { quantity } = req.body
-        const cart = await service.updateQuantityCartService ( id, productId, quantity )
-        res.status(200).json({ message: 'Producto guardado', 'cart': cart})
+        const { id } = req.params;
+        const cart = await cartService.cleanCartService(id);
+        sendHttpResponse(res, { cart }, error.CART_NOT_EMPTIED);
     } catch (error) {
-        next(error.message)
+        next(error.message);
     }
-}
+};
 
-
-export const updateCart = async (req,res,next) => {
-
+export const updateQuantityInCart = async (req, res, next) => {
     try {
-        
-        const { id } = req.params
+        const { id, productId } = req.params;
+        const { quantity } = req.body;
+        const cart = await cartService.updateQuantityInCartService(id, productId, quantity);
+        sendHttpResponse(res, { cart }, error.CART_NOT_UPDATED);
+    } catch (error) {
+        next(error.message);
+    }
+};
+
+export const updateCart = async (req, res, next) => {
+    try {
+        const { id } = req.params;
         const obj = req.body;
-        const cart = await service.updateCartService ( id, obj )
-        res.status(200).json({ message: 'Producto guardado', 'cart': cart})
+        const cart = await cartService.updateCartService(id, obj);
+        sendHttpResponse(res, { cart }, error.CART_NOT_UPDATED);
     } catch (error) {
-        next(error.message)
+        next(error.message);
     }
-}
+};
 
-export const generateReceipt = async (req, res, next) => {
+export const generateTicket = async (req, res, next) => {
     try {
         const user = await getUserByID(req.user);
         if (!user) {
-            return res.status(404).json({ message: 'Usuario no encontrado' });
+            return httpResponse.NotFound(res, error.USER_NOT_FOUND);
         }
 
+        const { id } = req.params;
+        const cartID = id ? id : user.cart[0].CartID;
         const userID = user.id;
-        const cartID = user.cart[0].CartID;
-        console.log('userID = ' + userID);
-        console.log('cartID = ' + cartID);
 
-        const receipt = await service.generateReceiptService(userID, cartID);
-        if (!receipt) {
-            return res.status(404).json({ message: 'Error generando el recibo' });
-        }
-
-        res.status(200).json(receipt);
-
+        const ticket = await cartService.generateTicketService(userID, cartID);
+        sendHttpResponse(res, ticket, error.TICKET_NOT_CREATED);
     } catch (error) {
         console.log(error);
         next(error.message);
     }
-}
+};

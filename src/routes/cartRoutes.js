@@ -1,15 +1,29 @@
-import { Router } from 'express'
-import * as controller from '../controllers/cartControllers.js'
+import { Router } from 'express';
+import * as controller from '../controllers/cartControllers.js';
+import passport from 'passport';
 
-const router = Router ()
+const router = Router();
 
-router.get('/', controller.getCart)
-router.get('/:id', controller.getCartById)
-router.post('/', controller.createCart)
-router.post('/:id/prod/:productId', controller.saveProductToCart)
-router.delete('/:id/prod/:productId', controller.deleteProductInCart)
-router.delete('/:id', controller.cleanCart)
-router.put ('/:id/prod/:productId', controller.updateQuantityInCart)
-router.put ('/:id', controller.updateCart)
+router.use(passport.authenticate("jwt"));
 
-export default router
+router.route('/:id/purchase')
+  .post(controller.generateTicket);
+
+router.route('/purchase')
+  .post(controller.generateTicket);
+
+router.route('/:id/prod/:productId')
+  .post(controller.saveProductToCart)
+  .delete(controller.deleteProductInCart)
+  .put(controller.updateQuantityInCart);
+
+router.route('/:id')
+  .get(controller.getCartById)
+  .post(controller.createCart)
+  .delete(controller.cleanCart)
+  .put(controller.updateCart);
+
+router.route('/')
+  .get(controller.getCart);
+
+export default router;

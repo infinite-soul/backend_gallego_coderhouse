@@ -2,8 +2,7 @@ import { createChat, getChat } from "../daos/mongodb/chatDao.js";
 
 export const getChatService = async () => {
     try {
-        const chat = await getChat()
-        return chat
+        return await getChat();
     } catch (error) {
         console.log(error);
     }
@@ -11,11 +10,11 @@ export const getChatService = async () => {
 
 export const createService = async (obj) => {
     try {
-        const message = {}
-        message.user = obj.username
-        message.message = obj.message
-        const response = await createChat(message);
-        return response;
+        const message = {
+            user: obj.username,
+            message: obj.message
+        };
+        return await createChat(message);
     } catch (error) {
         console.log(error);
     }

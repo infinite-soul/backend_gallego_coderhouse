@@ -1,23 +1,28 @@
-import { mailOptionsEthereal, mailOptionsGmail, transporterEthereal, transporterGmail } from "../services/emailServices.js";
-
-export const sendMailEthereal = async(req, res) => {
+import {
+    mailOptionsEthereal,
+    mailOptionsGmail,
+    transporterEthereal,
+    transporterGmail,
+  } from "../services/emailServices.js";
+  import { HttpResponse } from "../utils/http.response.js";
+  
+  const httpResponse = new HttpResponse();
+  
+  const sendMail = async (transporter, mailOptions, req, res) => {
     try {
-        const response = await transporterEthereal.sendMail(mailOptionsEthereal);
-        console.log('Correo Ethereal enviado');
-        res.json(response);
+      const { dest, name } = req.body;
+      const response = await transporter.sendMail(mailOptions(dest, name));
+      return httpResponse.Ok(res, response);
     } catch (error) {
-        console.log(error);
+      console.log(error);
     }
-}
-
-export const sendMailGmail = async(req, res) => {
-    try {
-        const { dest, name } = req.body;
-
-        const response = await transporterGmail.sendMail(mailOptionsGmail(dest, name));
-        console.log('Correo gmail enviado!');
-        res.json(response);
-    } catch (error) {
-        console.log(error);
-    }
-}
+  };
+  
+  export const sendMailEthereal = async (req, res) => {
+    return sendMail(transporterEthereal, mailOptionsEthereal, req, res);
+  };
+  
+  export const sendMailGmail = async (req, res) => {
+    return sendMail(transporterGmail, mailOptionsGmail, req, res);
+  };
+  

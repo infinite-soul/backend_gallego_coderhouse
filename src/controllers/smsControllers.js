@@ -9,7 +9,7 @@ export const sendSMS = async (req, res, next) => {
         const { message, dest } = req.body;
         const twilioMessage = {
             body: message,
-            from: config.TWILIO_PHONE,
+            from: config.twilio.PHONE,
             to: dest
         };
         const response = await twilioClient.messages.create(twilioMessage);

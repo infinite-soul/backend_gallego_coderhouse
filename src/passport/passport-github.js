@@ -5,6 +5,12 @@ import 'dotenv/config';
 import { loginUserServices } from "../services/userServices.js";
 import { HttpResponse } from "../utils/http.response.js";
 import error from "../utils/errors.dictionary.js";
+import { logger } from "../utils/logger.js";
+
+const logError = (error) => {
+    logger.error ('Error passport github:', error.message);
+  throw error;
+  };
 
 const httpResponse = new HttpResponse();
 
@@ -44,7 +50,7 @@ const registerOrLogin = async (req, accessToken, refreshToken, profile, done) =>
 
     return done(null, newUser);
   } catch (error) {
-    console.error(error);
+    logError(error);
     return done(error);
   }
 };

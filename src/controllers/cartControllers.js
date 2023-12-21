@@ -2,6 +2,13 @@ import * as cartService from '../services/cartServices.js';
 import { getUserByID } from "../persistance/daos/mongodb/userDaoMongo.js";
 import { HttpResponse } from "../utils/http.response.js";
 import error from "../utils/errors.dictionary.js";
+import { logger } from "../utils/logger.js";
+
+const logError = (error) => {
+    logger.error ('Error Middleware auth:', error.message);
+  throw error;
+  };
+
 
 const httpResponse = new HttpResponse();
 
@@ -18,6 +25,7 @@ export const getCart = async (req, res, next) => {
         sendHttpResponse(res, { 'cart ': data }, error.CART_NOT_FOUND);
     } catch (error) {
         next(error.message);
+        logError(error);
     }
 };
 
@@ -28,6 +36,7 @@ export const getCartById = async (req, res, next) => {
         sendHttpResponse(res, { cart }, error.CART_NOT_FOUND);
     } catch (error) {
         next(error.message);
+        logError(error);
     }
 };
 
@@ -37,6 +46,7 @@ export const createCart = async (req, res, next) => {
         sendHttpResponse(res, { cart }, error.CART_NOT_CREATED);
     } catch (error) {
         next(error.message);
+        logError(error);
     }
 };
 
@@ -47,6 +57,7 @@ export const saveProductToCart = async (req, res, next) => {
         sendHttpResponse(res, { cart }, error.CART_NOT_UPDATED);
     } catch (error) {
         next(error.message);
+        logError(error);
     }
 };
 
@@ -57,6 +68,7 @@ export const deleteProductInCart = async (req, res, next) => {
         sendHttpResponse(res, { cart }, error.CART_NOT_DELETED);
     } catch (error) {
         next(error.message);
+        logError(error);
     }
 };
 
@@ -67,6 +79,7 @@ export const cleanCart = async (req, res, next) => {
         sendHttpResponse(res, { cart }, error.CART_NOT_EMPTIED);
     } catch (error) {
         next(error.message);
+        logError(error);
     }
 };
 
@@ -78,6 +91,7 @@ export const updateQuantityInCart = async (req, res, next) => {
         sendHttpResponse(res, { cart }, error.CART_NOT_UPDATED);
     } catch (error) {
         next(error.message);
+        logError(error);
     }
 };
 
@@ -89,10 +103,11 @@ export const updateCart = async (req, res, next) => {
         sendHttpResponse(res, { cart }, error.CART_NOT_UPDATED);
     } catch (error) {
         next(error.message);
+        logError(error);
     }
 };
 
-export const generateTicket = async (req, res, next) => {
+export const generateOrder = async (req, res, next) => {
     try {
         const user = await getUserByID(req.user);
         if (!user) {
@@ -103,10 +118,10 @@ export const generateTicket = async (req, res, next) => {
         const cartID = id ? id : user.cart[0].CartID;
         const userID = user.id;
 
-        const ticket = await cartService.generateTicketService(userID, cartID);
-        sendHttpResponse(res, ticket, error.TICKET_NOT_CREATED);
+        const order = await cartService.generateOrderService(userID, cartID);
+        sendHttpResponse(res, order, error.ORDER_NOT_CREATED);
     } catch (error) {
-        console.log(error);
+        logError(error);
         next(error.message);
     }
 };

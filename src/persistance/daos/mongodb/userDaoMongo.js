@@ -1,33 +1,33 @@
 import { createHash, isValidPassword } from "../../../utils.js";
-import { createCart, createCartTestMocks } from "./cartDaoMongo.js";
+import { createCart } from "./cartDaoMongo.js";
 import { UserModel } from "./models/userModel.js";
 import { fakerES_MX as faker } from "@faker-js/faker";
 import { UserModelMocks } from "./models/userModel_Mocks.js";
+import { logger } from '../../../utils/logger.js';
+
+const logError = (error) => {
+  logger.error ('Error User Dao:', error.message);
+  throw error;
+};
+
+const logUserExists = (existUser) => {
+  console.log(`El usuario ${existUser.email} ya existe`);
+  return false;
+};
+
+const logUserCreated = (newUser) => {
+  console.log(`Usuario ${newUser.email} creado`);
+  return newUser;
+};
 
 export const registerUser = async (user) => {
   try {
     const { email, password } = user;
     const existUser = await getUserByEmail(email);
 
-    if (existUser) {
-      console.log(`El usuario ${existUser.email} ya existe`);
-      return false;
-    }
-
-    const newCart = await createCart();
-    const role = email === "esadmincoder@coderhouse.com" && password === "esAdmin" ? "admin" : "user";
-
-    const newUser = await UserModel.create({
-      ...user,
-      password: createHash(password),
-      role,
-      cart: [{ CartID: newCart.id }],
-    });
-
-    console.log(`Usuario ${newUser.email} creado`);
-    return newUser;
+    return existUser ? logUserExists(existUser) : logUserCreated(await createNewUser(user));
   } catch (error) {
-    throw new Error(error.message);
+    logError(error);
   }
 };
 
@@ -36,13 +36,9 @@ export const loginUser = async (user) => {
     const { email, password } = user;
     const userExist = await getUserByEmail(email);
 
-    if (!userExist) return false;
-
-    const passValid = isValidPassword(password, userExist);
-
-    return passValid ? userExist : false;
+    return userExist ? (isValidPassword(password, userExist) ? userExist : false) : false;
   } catch (error) {
-    throw new Error(error.message);
+    logError(error);
   }
 };
 
@@ -50,7 +46,7 @@ export const getUserByID = async (id) => {
   try {
     return await UserModel.findById(id) || false;
   } catch (error) {
-    throw new Error(error.message);
+    logError(error);
   }
 };
 
@@ -58,7 +54,7 @@ export const getAll = async () => {
   try {
     return await UserModel.find({});
   } catch (error) {
-    throw new Error(error.message);
+    logError(error);
   }
 };
 
@@ -66,7 +62,7 @@ export const getUserByEmail = async (email) => {
   try {
     return await UserModel.findOne({ email }) || false;
   } catch (error) {
-    throw new Error(error.message);
+    logError(error);
   }
 };
 
@@ -87,7 +83,7 @@ export const createUsersMock = async (cant = 50) => {
     }
     return users;
   } catch (error) {
-    throw new Error(error.message);
+    logError(error);
   }
 };
 
@@ -95,6 +91,18 @@ export const getUsersMocks = async () => {
   try {
     return await UserModelMocks.find({});
   } catch (error) {
-    throw new Error(error.message);
+    logError(error);
   }
+};
+
+const createNewUser = async (user) => {
+  const newCart = await createCart();
+  const role = user.email === "esadmincoder@coderhouse.com" && user.password === "esAdmin" ? "admin" : "user";
+
+  return UserModel.create({
+    ...user,
+    password: createHash(user.password),
+    role,
+    cart: [{ CartID: newCart.id }],
+  });
 };

@@ -1,6 +1,13 @@
 import * as service from "../services/productServices.js";
 import { HttpResponse } from "../utils/http.response.js";
 import error from "../utils/errors.dictionary.js";
+import { logger } from "../utils/logger.js";
+
+const logError = (error) => {
+    logger.error ('Error Product Controllers', error.message);
+  throw error;
+  };
+
 
 const httpResponse = new HttpResponse();
 
@@ -45,6 +52,7 @@ export const getproduct = async (req, res, next) => {
     });
   } catch (error) {
     next(error.message);
+    logError(error);
   }
 };
 
@@ -78,6 +86,7 @@ export const getproductPaginate = async (req, res, next) => {
     });
   } catch (error) {
     next(error.message);
+    logError(error);
   }
 };
 
@@ -89,6 +98,7 @@ export const getProductById = async (req, res, next) => {
     else return httpResponse.Ok(res, { product })
   } catch (error) {
     next(error.message);
+    logError(error);
   }
 };
 
@@ -100,6 +110,7 @@ export const addProduct = async (req, res, next) => {
     else return httpResponse.Ok(res, { 'Created product': product })
   } catch (error) {
     next(error.message);
+    logError(error);
   }
 };
 
@@ -114,7 +125,8 @@ export const updateProduct = async (req, res, next) => {
     else return httpResponse.Ok(res, { 'Updated product': productUpdated })
 
   } catch (error) {
-    next(error.message);
+    next(error.message);    
+    logError(error);
   }
 };
 
@@ -129,6 +141,7 @@ export const deleteProduct = async (req, res, next) => {
 
   } catch (error) {
     next(error.message);
+    logError(error);
   }
 };
 
@@ -143,6 +156,7 @@ export const getByIdDTO = async (req, res, next) => {
     else return httpResponse.Ok(res, { product })
   } catch (error) {
     next(error.message);
+    logError(error);
   }
 };
 
@@ -154,6 +168,7 @@ export const createProdDTO = async (req, res, next) => {
     else return httpResponse.Ok(res, { product })
   } catch (error) {
     next(error.message);
+    logError(error);
   }
 };
 
@@ -168,6 +183,7 @@ export const createProductsMocks = async (req, res, next) => {
     else return httpResponse.Ok(res, { 'Mock Products': response })
   } catch (error) {
     next(error.message);
+    logError(error);
   }
 };
 
@@ -178,5 +194,6 @@ export const getProductsMocks = async (req, res, next) => {
     else return httpResponse.Ok(res, response)
   } catch (error) {
     next(error.message);
+    logError(error);
   }
 };

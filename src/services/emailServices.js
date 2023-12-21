@@ -3,11 +3,11 @@ import config from '../utils/config.js';
 import { templateHtml } from './template.js';
 
 const etherealTransporter = createTransport({
-    host: config.HOST_ETHEREAL,
-    port: config.PORT_ETHEREAL,
+    host: config.ethereal.HOST,
+    port: config.ethereal.PORT,
     auth: {
-        user: config.EMAIL_ETHEREAL,
-        pass: config.PASSWORD_ETHEREAL,
+        user: config.ethereal.EMAIL,
+        pass: config.ethereal.PASSWORD,
     }
 });
 
@@ -16,25 +16,25 @@ const gmailTransporter = createTransport({
     port: 465,
     secure: true,
     auth: {
-        user: config.EMAIL_GMAIL,
-        pass: config.PASSWORD_GMAIL
+        user: config.gmail.EMAIL,
+        pass: config.gmail.PASSWORD
     }
 });
 
 const defaultMailOptions = {
-    from: config.EMAIL,
+    from: config.ethereal.EMAIL,
     subject: 'Bienvenido/a',
 };
 
 export const mailOptionsEthereal = {
     ...defaultMailOptions,
-    to: config.EMAIL_ETHEREAL,
+    to: config.ethereal.EMAIL,
     html: templateHtml,
 };
 
 export const mailOptionsGmail = (dest, name) => ({
     ...defaultMailOptions,
-    from: config.EMAIL_GMAIL,
+    from: config.gmail.EMAIL,
     to: dest,
     subject: 'Bienvenido/a',
     html: `<h1>Hola ${name}, ¡Te damos la bienvenida!</h1>`
@@ -42,7 +42,7 @@ export const mailOptionsGmail = (dest, name) => ({
 
 export const mailOptionsGmailLoginOk = (dest, name) => ({
     ...defaultMailOptions,
-    from: config.EMAIL_GMAIL,
+    from: config.gmail.EMAIL,
     to: dest,
     subject: 'Inicio de sesión exitoso',
     html: `<h1>Tu inicio de sesión fue exitoso</h1>`

@@ -5,12 +5,17 @@ import {
   getUserByID,
   registerUser,
 } from "../persistance/daos/mongodb/userDaoMongo.js";
-import { generateToken } from "../jwt/auth.js";
 import { HttpResponse } from "../utils/http.response.js";
 import { mailOptionsGmailLoginOk, transporterGmail } from "../services/emailServices.js";
 import error from "../utils/errors.dictionary.js";
+import { logger } from "../utils/logger.js";
 
 const httpResponse = new HttpResponse();
+
+const logError = (error) => {
+  logger.error ('Error Passport local:', error.message);
+throw error;
+};
 
 const strategyOptions = {
   usernameField: "email",
@@ -25,8 +30,7 @@ const register = async (req, email, password, done) => {
     const newUser = await registerUser(req.body);
     return done(null, newUser);
   } catch (error) {
-    console.error(error);
-    return done(error);
+    logError(error);
   }
 };
 
@@ -35,7 +39,7 @@ const login = async (req, email, password, done) => {
     const token = await loginUserServices(req.body);
 
     if (!token) {
-      return done(null, false, error.USER_CREDENTIALS);
+      return httpResponse.Unauthorized(null, false, error.USER_CREDENTIALS);
     }
 
     const userEmail = req.body.email;
@@ -43,10 +47,9 @@ const login = async (req, email, password, done) => {
 
     await transporterGmail.sendMail(mailOptionsGmailLoginOk(userEmail, userName));
 
-    return done(null, { token });
+    return httpResponse.Ok(null, { token });
   } catch (error) {
-    console.error(error);
-    return done(error);
+    logError(error);
   }
 };
 
@@ -65,7 +68,6 @@ passport.deserializeUser(async (id, done) => {
     const user = await getUserByID(id);
     return done(null, user);
   } catch (error) {
-    console.error(error);
-    return done(error);
+    logError(error);
   }
 });

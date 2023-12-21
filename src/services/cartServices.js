@@ -7,15 +7,16 @@ import {
     saveProductToCart,
     updateCart,
     updateQuantityInCart,
-    generateTicket
+    generateOrder
 } from "../persistance/daos/mongodb/cartDaoMongo.js";
+import { logger } from "../utils/logger.js";
 
 const executeService = async (func, ...args) => {
     try {
         const result = await func(...args);
         return result;
     } catch (error) {
-        throw new Error(error.message);
+        logger.error ('Error Cart Service:', error.message);
     }
 };
 
@@ -53,7 +54,7 @@ export const updateCartService = async (id, obj) => {
     return executeService(updateCart, id, obj);
 };
 
-export const generateTicketService = async (userID, cartID) => {
-    const ticket = await executeService(generateTicket, userID, cartID);
-    return ticket || false;
+export const generateOrderService = async (userID, cartID) => {
+    const order = await executeService(generateOrder, userID, cartID);
+    return order || false;
 };

@@ -7,9 +7,10 @@ import {
     getUsersMocks,
 } from "../persistance/daos/mongodb/userDaoMongo.js";
 import { getByIdDTO } from "../persistance/repository/user.repository.js";
+import { logger } from "../utils/logger.js";
 
 const handleServiceError = (error) => {
-    throw new Error(error.message);
+    logger.error('Error User Service', error.message);
 };
 
 export const registerUserService = async (user) => {

@@ -12,6 +12,7 @@ import productRouter from './routes/productRoutes.js';
 import cartRouter from './routes/cartRoutes.js';
 import viewsRouter from './routes/viewsRoutes.js';
 import userRouter from './routes/userRoutes.js';
+import apiRouter from './routes/index.js';
 import passport from 'passport';
 import 'dotenv/config'
 
@@ -23,7 +24,7 @@ const VIEWS_DIR = __dirname + '/views';
 // Configuración de la aplicación
 const app = express();
 
-// Middlewares
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(PUBLIC_DIR));
@@ -41,10 +42,8 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // Rutas
-app.use('/api/products', productRouter);
-app.use('/api/cart', cartRouter);
 app.use('/', viewsRouter);
-app.use('/api/users', userRouter);
+app.use('/api', apiRouter);
 
 // Iniciar el servidor
 app.listen(PORT, () => {

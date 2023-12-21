@@ -1,14 +1,19 @@
 import { CartsModel } from "./models/cartModel.js";
-import { TicketModel } from "./models/ticketModel.js";
+import { OrderModel } from "./models/orderModel.js";
 import { ProductModel } from "./models/productModel.js";
 import { UserModel } from "./models/userModel.js";
+import { logger } from '../../../utils/logger.js';
 
+const logError = (error) => {
+    logger.error ('Error Cart Dao:', error.message);
+  throw error;
+};
 
 export const getCart = async () => {
     try {
         return await CartsModel.find({}).populate('products.ProductID');
     } catch (error) {
-        throw new Error(error.message);
+        logError(error);
     }
 };
 
@@ -16,7 +21,7 @@ export const getCartById = async (id) => {
     try {
         return await CartsModel.findById(id).populate('products.ProductID');
     } catch (error) {
-        throw new Error(error.message);
+        logError(error);
     }
 };
 
@@ -26,7 +31,7 @@ export const createCart = async () => {
         console.log('Carrito creado exitosamente');
         return newCart;
     } catch (error) {
-        throw new Error(error.message);
+        logError(error);
     }
 };
 
@@ -46,7 +51,7 @@ export const saveProductToCart = async (id, productId) => {
         await cart.save();
         return cart;
     } catch (error) {
-        throw new Error(error.message);
+        logError(error);
     }
 };
 
@@ -60,7 +65,7 @@ export const deleteProductInCart = async (id, productId) => {
         }
         return cart;
     } catch (error) {
-        throw new Error(error.message);
+        logError(error);
     }
 };
 
@@ -74,7 +79,7 @@ export const cleanCart = async (id) => {
         }
         return cart;
     } catch (error) {
-        throw new Error(error.message);
+        logError(error);
     }
 };
 
@@ -92,7 +97,7 @@ export const updateQuantityInCart = async (id, productId, quantity) => {
         }
         return cart;
     } catch (error) {
-        throw new Error(error.message);
+        logError(error);
     }
 };
 
@@ -106,11 +111,11 @@ export const updateCart = async (id, obj) => {
         }
         return cart;
     } catch (error) {
-        throw new Error(error.message);
+        logError(error);
     }
 };
 
-export const generateTicket = async (userID, cartID) => {
+export const generateOrder = async (userID, cartID) => {
     try {
         const userCart = await CartsModel.findById(cartID);
         if (userCart) {
@@ -136,7 +141,7 @@ export const generateTicket = async (userID, cartID) => {
                 }
             }
             if (totalAmount > 0) {
-                const ticket = await TicketModel.create({
+                const order = await OrderModel.create({
                     code: `${Math.random()}`,
                     purchase_datetime: new Date().toLocaleString(),
                     amount: totalAmount,
@@ -148,16 +153,16 @@ export const generateTicket = async (userID, cartID) => {
                 await userCart.save();
                 const updatedUser = await UserModel.findOneAndUpdate(
                     { _id: userID },
-                    { $push: { ticket: { TicketID: ticket.id } } },
+                    { $push: { order: { OrderID: order.id } } },
                 );
                 return {
-                    ticket,
+                    order,
                     productsNotPurchased,
                     user: updatedUser
                 };
             } else {
                 return {
-                    ticket: null,
+                    order: null,
                     productsNotPurchased,
                 };
             }
@@ -165,8 +170,7 @@ export const generateTicket = async (userID, cartID) => {
             throw new Error('Carrito no encontrado');
         }
     } catch (error) {
-        console.error(error);
-        throw error;
+        logError(error);
     }
 };
 
@@ -176,6 +180,6 @@ export const createCartTestMocks = async () => {
         console.log('Carrito creado exitosamente');
         return newCart;
     } catch (error) {
-        throw new Error(error.message);
+        logError(error);
     }
 };

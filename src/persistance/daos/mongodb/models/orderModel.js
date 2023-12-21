@@ -6,7 +6,7 @@ const productSchema = new Schema({
     price: { type: Number, required: true },
 });
 
-const ticketSchema = new Schema({
+const orderSchema = new Schema({
     code: { type: String, required: true },
     purchase_datetime: { type: Date, required: true }, 
     amount: { type: Number, required: true },
@@ -14,4 +14,4 @@ const ticketSchema = new Schema({
     products: [productSchema], 
 });
 
-export const TicketModel = model("ticket", ticketSchema);
+export const OrderModel = model("order", orderSchema);

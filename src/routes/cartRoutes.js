@@ -7,10 +7,10 @@ const router = Router();
 router.use(passport.authenticate("jwt"));
 
 router.route('/:id/purchase')
-  .post(controller.generateTicket);
+  .post(controller.generateOrder);
 
 router.route('/purchase')
-  .post(controller.generateTicket);
+  .post(controller.generateOrder);
 
 router.route('/:id/prod/:productId')
   .post(controller.saveProductToCart)

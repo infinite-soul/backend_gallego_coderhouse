@@ -4,8 +4,16 @@ import {
     transporterEthereal,
     transporterGmail,
   } from "../services/emailServices.js";
-  import { HttpResponse } from "../utils/http.response.js";
+import { HttpResponse } from "../utils/http.response.js";
+import { logger } from "../utils/logger.js";
+
+const logError = (error) => {
+    logger.error ('Error email controllers:', error.message);
+  throw error;
+  };
   
+
+
   const httpResponse = new HttpResponse();
   
   const sendMail = async (transporter, mailOptions, req, res) => {
@@ -14,7 +22,7 @@ import {
       const response = await transporter.sendMail(mailOptions(dest, name));
       return httpResponse.Ok(res, response);
     } catch (error) {
-      console.log(error);
+      logError(error);
     }
   };
   

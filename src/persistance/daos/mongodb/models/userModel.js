@@ -8,10 +8,10 @@ const cartSchemaID = new Schema({
     }
 });
 
-const ticketSchemaID = new Schema({
-    TicketID: {
+const orderSchemaID = new Schema({
+    OrderID: {
         type: Schema.Types.ObjectId,
-        ref: "ticket",
+        ref: "order",
         required: true
     }
 });
@@ -25,7 +25,7 @@ const userSchema = new Schema({
     role: { type: String, default: 'user' },
     isGithub: { type: Boolean, default: false },
     cart: [{ type: cartSchemaID, required: true }],
-    ticket: [{ type: ticketSchemaID, required: true }]
+    order: [{ type: orderSchemaID, required: true }]
 });
 
 export const UserModel = model('user', userSchema);

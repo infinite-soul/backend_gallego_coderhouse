@@ -1,6 +1,6 @@
 import fs from 'fs/promises';
-import { resolve } from 'path';
-const pathFile = resolve('db/carts.json');
+import { __dirname } from '../../../utils.js';
+const pathFile = __dirname+'/db/carts.json';
 
 const readCartFile = async () => {
   try {

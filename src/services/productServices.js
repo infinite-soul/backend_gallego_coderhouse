@@ -1,12 +1,3 @@
-const performDatabaseOperation = async (dbOperation, ...args) => {
-    try {
-        const result = await dbOperation(...args);
-        return result;
-    } catch (error) {
-        throw new Error(error.message);
-    }
-};
-
 import { 
     addProduct,
     createProductsMock,
@@ -16,6 +7,17 @@ import {
     getProductsMocks,
     updateProduct 
 } from "../persistance/daos/mongodb/productDaoMongo.js";
+
+
+const performDatabaseOperation = async (dbOperation, ...args) => {
+    try {
+        const result = await dbOperation(...args);
+        return result;
+    } catch (error) {
+        logger.error('Error Product Service:', error.message);
+    }
+};
+
 
 import { createProdDTO, getByIdDTO } from "../persistance/repository/product.repository.js";
 

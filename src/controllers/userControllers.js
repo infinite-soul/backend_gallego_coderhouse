@@ -5,13 +5,20 @@ import {
 } from "../services/emailServices.js";
 import {
   createUsersMockService,
-  currentUserResDTOService,
   getAllService,
   getUsersMocksService,
   loginUserServices,
 } from "../services/userServices.js";
 import { HttpResponse } from "../utils/http.response.js";
 import error from "../utils/errors.dictionary.js";
+import { logger } from "../utils/logger.js";
+
+const logError = (error) => {
+    logger.error ('Error User Controller:', error.message);
+  throw error;
+  };
+
+
 
 const httpResponse = new HttpResponse();
 
@@ -35,7 +42,7 @@ export const loginApi = async (req, res) => {
     await sendEmailAfterLogin(req.body.email);
     return httpResponse.Ok(res, { token });
   } catch (error) {
-    console.log(error);
+    logError(error);
   }
 };
 
@@ -51,7 +58,7 @@ export const login = async (req, res) => {
     res.cookie("token", token, { httpOnly: true });
     res.redirect("/products?page=1");
   } catch (error) {
-    console.log(error);
+    logError(error);
   }
 };
 
@@ -61,6 +68,7 @@ export const getAll = async (req, res, next) => {
     return httpResponse.Ok(res, data);
   } catch (error) {
     next(error.message);
+    logError(error);
   }
 };
 
@@ -77,6 +85,7 @@ export const current = async (req, res, next) => {
     }
   } catch (error) {
     next(error.message);
+    logError(error);
   }
 };
 
@@ -88,6 +97,7 @@ export const createUserMocks = async (req, res, next) => {
     else return httpResponse.Ok(res, response);
   } catch (error) {
     next(error.message);
+    logError(error);
   }
 };
 
@@ -98,5 +108,6 @@ export const getUsersMocks = async (req, res, next) => {
     else return httpResponse.Ok(res, response);
   } catch (error) {
     next(error.message);
+    logError(error);
   }
 };

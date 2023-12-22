@@ -5,8 +5,8 @@ import { UserModel } from "./models/userModel.js";
 import { logger } from '../../../utils/logger.js';
 
 const logError = (error) => {
-    logger.error ('Error Cart Dao:', error.message);
-  throw error;
+    logger.error('Error Cart Dao:', error.message);
+    throw error;
 };
 
 export const getCart = async () => {

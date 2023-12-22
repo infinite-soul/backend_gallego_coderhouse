@@ -1,8 +1,8 @@
-import { Router } from "express";
-import { sendSMS } from "../controllers/smsControllers.js";
+// import { Router } from "express";
+// import { sendSMS } from "../controllers/smsControllers.js";
 
-const router = Router();
+// const router = Router();
 
-router.post('/', sendSMS);
+// router.post('/', sendSMS);
 
-export default router;
+// export default router;

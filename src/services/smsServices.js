@@ -1,6 +1,6 @@
-import twilio from 'twilio';
-import config from '../utils/config.js';
+// import twilio from 'twilio';
+// import config from '../utils/config.js';
 
-const twilioClient = twilio(config.twilio.SID, config.twilio.TOKEN);
+// export const twilioClient = twilio(config.twilio.SID, config.twilio.TOKEN);
 
-export default twilioClient;
+// export default twilioClient;

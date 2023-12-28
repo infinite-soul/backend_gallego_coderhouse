@@ -8,7 +8,7 @@ export const getByIdDTO = async (id) => {
         const response = await ProductModel.findById(id);
         return new ProductResDTO(response);
     } catch (error) {
-        logger.error ('Error Product Repo:', error.message);
+        logger.error ('Error Product Repo:', error);
     }
 };
 
@@ -18,7 +18,7 @@ export const createProdDTO = async (obj) => {
         const response = await ProductModel.create(prodDTO);
         return response;
     } catch (error) {
-        logger.error ('Error Product Repo:', error.message);
+        logger.error ('Error Product Repo:', error);
     }
 };
 

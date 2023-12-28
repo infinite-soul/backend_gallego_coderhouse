@@ -5,7 +5,7 @@ import { logger } from '../../../utils/logger.js';
 export const connectionString = config.mongo.MONGO_ATLAS_URL;
 
 const logError = (error) => {
-    logger.error('Error al conectar a la base de datos MongoDB:', error.message);
+    logger.error('Error al conectar a la base de datos MongoDB:', error);
     throw error;
 };
 

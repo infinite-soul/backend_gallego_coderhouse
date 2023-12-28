@@ -14,7 +14,7 @@ const performDatabaseOperation = async (dbOperation, ...args) => {
         const result = await dbOperation(...args);
         return result;
     } catch (error) {
-        logger.error('Error Product Service:', error.message);
+        logger.error('Error Product Service:', error);
     }
 };
 

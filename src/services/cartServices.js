@@ -16,7 +16,7 @@ const executeService = async (func, ...args) => {
         const result = await func(...args);
         return result;
     } catch (error) {
-        logger.error ('Error Cart Service:', error.message);
+        logger.error ('Error Cart Service:', error);
     }
 };
 

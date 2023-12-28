@@ -7,6 +7,6 @@ export const getByIdDTO = async (id) => {
         const response = await UserModel.findById(id);
         return new currentUserResDTO(response);
     } catch (error) {
-        logger.error ('Error User Repo:', error.message);
+        logger.error ('Error User Repo:', error);
     }
 };

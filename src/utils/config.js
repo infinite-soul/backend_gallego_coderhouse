@@ -8,7 +8,6 @@ const config = {
     },
     mongo: {
         MONGO_ATLAS_URL: process.env.MONGO_ATLAS_URL,
-        MONGO_LOCAL_URL: process.env.MONGO_LOCAL_URL,
     },
     auth: {
         SECRET_KEY_JWT: process.env.SECRET_KEY_JWT,

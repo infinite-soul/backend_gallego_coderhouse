@@ -14,7 +14,7 @@ import error from "../utils/errors.dictionary.js";
 import { logger } from "../utils/logger.js";
 
 const logError = (error) => {
-    logger.error ('Error User Controller:', error.message);
+    logger.error ('Error User Controller:', error);
   throw error;
   };
 
@@ -36,7 +36,7 @@ export const loginApi = async (req, res) => {
   try {
     const token = await loginUserServices(req.body);
 
-    if (!token) return httpResponse.Unauthorized(res, error.USER_CREDENTIALS);
+    if (!token) return httpResponse.Unauthorized(res, error.USER.CREDENTIALS);
 
     res.cookie("token", token, { httpOnly: true });
     await sendEmailAfterLogin(req.body.email);
@@ -50,7 +50,7 @@ export const login = async (req, res) => {
   try {
     const token = await loginUserServices(req.body);
 
-    if (!token) return httpResponse.Unauthorized(res, error.USER_CREDENTIALS);
+    if (!token) return httpResponse.Unauthorized(res, error.USER.CREDENTIALS);
 
     res.cookie("token", token, { httpOnly: true });
     await sendEmailAfterLogin(req.body.email);
@@ -93,7 +93,7 @@ export const createUserMocks = async (req, res, next) => {
   try {
     const { cant } = req.query;
     const response = await createUsersMockService(cant);
-    if (!response) return httpResponse.NotFound(res, error.USER_EXISTS);
+    if (!response) return httpResponse.NotFound(res, error.USER.EXISTS);
     else return httpResponse.Ok(res, response);
   } catch (error) {
     next(error.message);
@@ -104,7 +104,7 @@ export const createUserMocks = async (req, res, next) => {
 export const getUsersMocks = async (req, res, next) => {
   try {
     const response = await getUsersMocksService();
-    if (!response) return httpResponse.NotFound(res, error.USER_NOT_FOUND);
+    if (!response) return httpResponse.NotFound(res, error.USER.NOT_FOUND);
     else return httpResponse.Ok(res, response);
   } catch (error) {
     next(error.message);

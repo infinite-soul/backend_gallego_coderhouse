@@ -5,10 +5,13 @@ import { fakerES_MX as faker } from "@faker-js/faker";
 import { UserModelMocks } from "./models/userModel_Mocks.js";
 import { logger } from '../../../utils/logger.js';
 
+
 const logError = (error) => {
-  logger.error ('Error User Dao:', error.message);
+  logger.error ('Error User Dao:', error);
   throw error;
 };
+
+
 
 const logUserExists = (existUser) => {
   console.log(`El usuario ${existUser.email} ya existe`);

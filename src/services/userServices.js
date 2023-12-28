@@ -10,7 +10,7 @@ import { getByIdDTO } from "../persistance/repository/user.repository.js";
 import { logger } from "../utils/logger.js";
 
 const handleServiceError = (error) => {
-    logger.error('Error User Service', error.message);
+    logger.error('Error User Services:', error);
 };
 
 export const registerUserService = async (user) => {

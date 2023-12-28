@@ -8,7 +8,7 @@ import error from "../utils/errors.dictionary.js";
 import { logger } from "../utils/logger.js";
 
 const logError = (error) => {
-    logger.error ('Error passport github:', error.message);
+    logger.error ('Error passport github:', error);
   throw error;
   };
 
@@ -35,7 +35,7 @@ const registerOrLogin = async (req, accessToken, refreshToken, profile, done) =>
     if (user) {
       const token = await loginUserServices({ email, password });
 
-      if (!token) return httpResponse.Unauthorized(res, error.USER_CREDENTIALS);
+      if (!token) return httpResponse.Unauthorized(res, error.USER.CREDENTIALS);
 
       return done(null, user);
     }

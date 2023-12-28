@@ -13,7 +13,7 @@ import { logger } from "../utils/logger.js";
 const httpResponse = new HttpResponse();
 
 const logError = (error) => {
-  logger.error ('Error Passport local:', error.message);
+  logger.error ('Error Passport local:', error);
 throw error;
 };
 
@@ -39,7 +39,7 @@ const login = async (req, email, password, done) => {
     const token = await loginUserServices(req.body);
 
     if (!token) {
-      return httpResponse.Unauthorized(null, false, error.USER_CREDENTIALS);
+      return httpResponse.Unauthorized(null, false, error.USER.CREDENTIALS);
     }
 
     const userEmail = req.body.email;

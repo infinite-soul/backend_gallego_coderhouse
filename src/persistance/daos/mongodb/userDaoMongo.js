@@ -11,8 +11,6 @@ const logError = (error) => {
   throw error;
 };
 
-
-
 const logUserExists = (existUser) => {
   console.log(`El usuario ${existUser.email} ya existe`);
   return false;
@@ -27,7 +25,8 @@ export const registerUser = async (user) => {
   try {
     const { email, password } = user;
     const existUser = await getUserByEmail(email);
-
+    console.log(email)
+    console.log(user)
     return existUser ? logUserExists(existUser) : logUserCreated(await createNewUser(user));
   } catch (error) {
     logError(error);

@@ -5,7 +5,7 @@ import { UserModel } from "./models/userModel.js";
 import { logger } from '../../../utils/logger.js';
 
 const logError = (error) => {
-    logger.error('Error Cart Dao:', error.message);
+    logger.error('Error Cart Dao:', error);
     throw error;
 };
 
@@ -115,59 +115,67 @@ export const updateCart = async (id, obj) => {
     }
 };
 
+
 export const generateOrder = async (userID, cartID) => {
     try {
         const userCart = await CartsModel.findById(cartID);
-        if (userCart) {
-            const productsNotPurchased = [];
-            let totalAmount = 0;
-            const purchasedProducts = [];
-            for (const productItem of userCart.products) {
-                const productID = productItem.ProductID;
-                const quantityInCart = productItem.quantity;
-                const productDB = await ProductModel.findById(productID);
-                if (productDB && quantityInCart <= productDB.stock) {
-                    const amount = quantityInCart * productDB.price;
-                    totalAmount += amount;
-                    productDB.stock -= quantityInCart;
-                    await productDB.save();
-                    purchasedProducts.push({
-                        ProductID: productID,
-                        quantity: quantityInCart,
-                        price: productDB.price,
-                    });
-                } else {
-                    productsNotPurchased.push(productID);
-                }
-            }
-            if (totalAmount > 0) {
-                const order = await OrderModel.create({
-                    code: `${Math.random()}`,
-                    purchase_datetime: new Date().toLocaleString(),
-                    amount: totalAmount,
-                    purchaser: userID,
-                    products: purchasedProducts,
-                });
-                userCart.products = userCart.products.filter(productItem => productsNotPurchased.includes(productItem.ProductID));
-                userCart.markModified('products');
-                await userCart.save();
-                const updatedUser = await UserModel.findOneAndUpdate(
-                    { _id: userID },
-                    { $push: { order: { OrderID: order.id } } },
-                );
-                return {
-                    order,
-                    productsNotPurchased,
-                    user: updatedUser
-                };
-            } else {
-                return {
-                    order: null,
-                    productsNotPurchased,
-                };
-            }
-        } else {
+        if (!userCart) {
             throw new Error('Carrito no encontrado');
+        }
+
+        const productsNotPurchased = [];
+        let totalAmount = 0;
+        const purchasedProducts = [];
+
+        for (const productItem of userCart.products) {
+            const { ProductID, quantity } = productItem;
+            const productDB = await ProductModel.findById(ProductID);
+
+            if (productDB && quantity <= productDB.stock) {
+                const amount = quantity * productDB.price;
+                totalAmount += amount;
+                productDB.stock -= quantity;
+                await productDB.save();
+                purchasedProducts.push({
+                    ProductID,
+                    quantity,
+                    price: productDB.price,
+                });
+            } else {
+                productsNotPurchased.push(ProductID);
+            }
+        }
+
+        if (totalAmount > 0) {
+            const order = await OrderModel.create({
+                code: `${Math.random()}`,
+                purchase_datetime: new Date().toLocaleString(),
+                amount: totalAmount,
+                purchaser: userID,
+                products: purchasedProducts,
+            });
+
+            userCart.products = userCart.products.filter((productItem) =>
+                productsNotPurchased.includes(productItem.ProductID)
+            );
+            userCart.markModified('products');
+            await userCart.save();
+
+            const updatedUser = await UserModel.findOneAndUpdate(
+                { _id: userID },
+                { $push: { order: { OrderID: order.id } } }
+            );
+
+            return {
+                order,
+                productsNotPurchased,
+                user: updatedUser,
+            };
+        } else {
+            return {
+                order: null,
+                productsNotPurchased,
+            };
         }
     } catch (error) {
         logError(error);

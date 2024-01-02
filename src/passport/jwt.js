@@ -5,7 +5,7 @@ import { getUserByID } from '../persistance/daos/mongodb/userDaoMongo.js';
 import { logger } from "../utils/logger.js";
 
 const logError = (error) => {
-  logger.error ('Error jwt:', error.message);
+  logger.error ('Error jwt:', error);
 throw error;
 };
 

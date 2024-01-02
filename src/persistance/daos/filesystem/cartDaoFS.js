@@ -1,12 +1,19 @@
 import fs from 'fs/promises';
 import { __dirname } from '../../../utils.js';
 const pathFile = __dirname+'/db/carts.json';
+import { logger } from "../utils/logger.js";
+
+const logError = (error) => {
+  logger.error ('Error Cart Dao:', error);
+throw error;
+};
 
 const readCartFile = async () => {
   try {
     const data = await fs.readFile(pathFile, 'utf8');
     return JSON.parse(data);
   } catch (error) {
+    logError(error);
     if (error.code === 'ENOENT') {
       return [];
     }
@@ -23,7 +30,7 @@ export const getCart = async () => {
     const cart = await readCartFile();
     return cart;
   } catch (error) {
-    console.error(error);
+    logError(error);
     throw error;
   }
 };
@@ -43,7 +50,7 @@ export const createCart = async () => {
 
     return `El carrito ${newCart.id} se ha creado correctamente`;
   } catch (error) {
-    console.error(error);
+    logError(error);
     throw error;
   }
 };
@@ -60,7 +67,7 @@ export const getCartById = async (cartId) => {
       return false;
     }
   } catch (error) {
-    console.error(error);
+    logError(error);
     throw error;
   }
 };
@@ -89,7 +96,7 @@ export const saveProductToCart = async (cartId, productId) => {
       return 'Error: ID del carrito no encontrado';
     }
   } catch (error) {
-    console.error(error);
+    logError(error);
     throw error;
   }
 };

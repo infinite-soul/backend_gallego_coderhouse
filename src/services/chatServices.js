@@ -1,10 +1,17 @@
 import { createChat, getChat } from "../daos/mongodb/chatDao.js";
+import { logger } from "../utils/logger.js";
+
+const logError = (error) => {
+    logger.error('Error Chat Services:', error);
+    throw error;
+};
+
 
 export const getChatService = async () => {
     try {
         return await getChat();
     } catch (error) {
-        console.log(error);
+        logError(error);
     }
 }
 
@@ -16,6 +23,6 @@ export const createService = async (obj) => {
         };
         return await createChat(message);
     } catch (error) {
-        console.log(error);
+        logError(error);
     }
 }

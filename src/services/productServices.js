@@ -7,6 +7,7 @@ import {
     getProductsMocks,
     updateProduct 
 } from "../persistance/daos/mongodb/productDaoMongo.js";
+import { logger } from "../utils/logger.js";
 
 
 const performDatabaseOperation = async (dbOperation, ...args) => {

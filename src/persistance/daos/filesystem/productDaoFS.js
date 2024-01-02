@@ -1,12 +1,19 @@
 import fs from 'fs/promises';
 import { resolve } from 'path';
 const pathFile = resolve('db/products.json');
+import { logger } from "../utils/logger.js";
+
+const logError = (error) => {
+  logger.error ('Error Product Dao:', error);
+throw error;
+};
 
 const readProductsFile = async () => {
   try {
     const data = await fs.readFile(pathFile, 'utf8');
     return JSON.parse(data);
   } catch (error) {
+    logError(error);
     if (error.code === 'ENOENT') {
       return [];
     }

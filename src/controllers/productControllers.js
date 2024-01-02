@@ -4,7 +4,7 @@ import error from "../utils/errors.dictionary.js";
 import { logger } from "../utils/logger.js";
 
 const logError = (error) => {
-    logger.error ('Error Product Controllers', error.message);
+    logger.error ('Error Product Controllers', error);
   throw error;
   };
 

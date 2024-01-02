@@ -8,7 +8,7 @@ import { HttpResponse } from "../utils/http.response.js";
 import { logger } from "../utils/logger.js";
 
 const logError = (error) => {
-    logger.error ('Error email controllers:', error.message);
+    logger.error ('Error email controllers:', error);
   throw error;
   };
   

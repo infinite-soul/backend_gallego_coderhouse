@@ -1,12 +1,19 @@
 import { getUserByID } from "../persistance/daos/mongodb/userDaoMongo.js";
 import { HttpResponse } from "../utils/http.response.js";
 import error from "../utils/errors.dictionary.js";
+import { logger } from "../utils/logger.js";
+
+const logError = (error) => {
+  logger.error ('Error Views Controller:', error);
+throw error;
+};
+
 
 export const register = async (req, res, next) => {
   try {
     res.render("register");
   } catch (error) {
-    next(error.message);
+    logError(error);
   }
 };
 
@@ -14,7 +21,7 @@ export const errorRegister = async (req, res, next) => {
   try {
     res.render("errorRegister");
   } catch (error) {
-    next(error.message);
+    logError(error);
   }
 };
 
@@ -22,7 +29,7 @@ export const login = async (req, res, next) => {
   try {
     res.render("login");
   } catch (error) {
-    next(error.message);
+    logError(error);
   }
 };
 
@@ -30,7 +37,7 @@ export const errorLogin = async (req, res, next) => {
   try {
     res.render("errorLogin");
   } catch (error) {
-    next(error.message);
+    logError(error);
   }
 };
 
@@ -46,6 +53,6 @@ export const current = async (req, res, next) => {
       res.redirect("/login"); 
     }
   } catch (error) {
-    next(error.message);
+    logError(error);
   }
 };

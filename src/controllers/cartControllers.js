@@ -109,14 +109,14 @@ export const updateCart = async (req, res, next) => {
 
 export const generateOrder = async (req, res, next) => {
     try {
-        const user = await getUserByID(req.user);
-        if (!user) {
+        const users = await getUserByID(req.users);
+        if (!users) {
             return httpResponse.NotFound(res, error.USER.NOT_FOUND);
         }
 
         const { id } = req.params;
-        const cartID = id ? id : user.cart[0].CartID;
-        const userID = user.id;
+        const cartID = id ? id : users.cart[0].CartID;
+        const userID = users.id;
 
         const order = await cartService.generateOrderService(userID, cartID);
         sendHttpResponse(res, order, error.ORDER.NOT_CREATED);

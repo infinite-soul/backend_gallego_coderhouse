@@ -1,7 +1,7 @@
 import fs from 'fs/promises';
 import { resolve } from 'path';
 const pathFile = resolve('db/products.json');
-import { logger } from "../utils/logger.js";
+import { logger } from "../../../utils/logger.js";
 
 const logError = (error) => {
   logger.error ('Error Product Dao:', error);

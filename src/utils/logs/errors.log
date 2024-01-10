@@ -81,3 +81,138 @@ error | 12-30-2023 01:54:25 | Error User Dao: Operation `users.findOne()` buffer
 error | 12-30-2023 02:02:53 | Error User Dao: Operation `users.findOne()` buffering timed out after 10000ms
 error | 12-30-2023 02:02:53 | Error User Dao: Operation `users.findOne()` buffering timed out after 10000ms
 error | 12-30-2023 02:02:53 | Error User Services: Operation `users.findOne()` buffering timed out after 10000ms
+error | 01-03-2024 06:22:48 | Error User Dao: Operation `users.findOne()` buffering timed out after 10000ms
+error | 01-03-2024 06:22:48 | Error User Dao: Operation `users.findOne()` buffering timed out after 10000ms
+error | 01-03-2024 06:22:48 | Error User Services: Operation `users.findOne()` buffering timed out after 10000ms
+error | 01-03-2024 06:36:53 | Error User Dao: Operation `users.findOne()` buffering timed out after 10000ms
+error | 01-03-2024 06:36:53 | Error User Dao: Operation `users.findOne()` buffering timed out after 10000ms
+error | 01-03-2024 06:36:53 | Error User Services: Operation `users.findOne()` buffering timed out after 10000ms
+error | 01-03-2024 06:42:14 | Error User Dao: Operation `users.findOne()` buffering timed out after 10000ms
+error | 01-03-2024 06:44:49 | Error User Dao Mongo: Operation `users.findOne()` buffering timed out after 10000ms
+error | 01-03-2024 06:45:37 | Error User Dao Mongo: Operation `users.find()` buffering timed out after 10000ms
+error | 01-03-2024 07:31:18 | Error User Dao Mongo: userEmail is not defined
+error | 01-03-2024 07:33:06 | Error User Dao Mongo: Operation `users.findOne()` buffering timed out after 10000ms
+error | 01-03-2024 09:38:03 | Error User Dao Mongo: Operation `users.findOne()` buffering timed out after 10000ms
+error | 01-03-2024 09:38:03 | Error User Dao Mongo: Operation `users.findOne()` buffering timed out after 10000ms
+error | 01-03-2024 09:38:03 | Error User Services: Operation `users.findOne()` buffering timed out after 10000ms
+error | 01-03-2024 09:40:37 | Error User Dao Mongo: user is not defined
+error | 01-03-2024 09:40:37 | Error User Dao Mongo: user is not defined
+error | 01-03-2024 09:40:37 | Error User Services: user is not defined
+error | 01-03-2024 09:41:02 | Error User Dao Mongo: user is not defined
+error | 01-03-2024 09:41:02 | Error User Dao Mongo: user is not defined
+error | 01-03-2024 09:41:02 | Error User Services: user is not defined
+error | 01-03-2024 09:41:23 | Error User Dao Mongo: user is not defined
+error | 01-03-2024 09:41:23 | Error User Services: user is not defined
+error | 01-03-2024 09:49:34 | Error User Dao Mongo: Operation `users.findOne()` buffering timed out after 10000ms
+error | 01-03-2024 09:49:34 | Error User Dao Mongo: Operation `users.findOne()` buffering timed out after 10000ms
+error | 01-03-2024 09:49:34 | Error User Services: Operation `users.findOne()` buffering timed out after 10000ms
+error | 01-03-2024 09:50:32 | Error User Dao Mongo: Operation `users.findOne()` buffering timed out after 10000ms
+error | 01-03-2024 09:50:32 | Error User Dao Mongo: Operation `users.findOne()` buffering timed out after 10000ms
+error | 01-03-2024 09:50:32 | Error User Services: Operation `users.findOne()` buffering timed out after 10000ms
+error | 01-03-2024 10:01:31 | Error User Dao Mongo: Operation `users.findOne()` buffering timed out after 10000ms
+error | 01-03-2024 10:01:31 | Error User Dao Mongo: Operation `users.findOne()` buffering timed out after 10000ms
+error | 01-03-2024 10:01:31 | Error User Services: Operation `users.findOne()` buffering timed out after 10000ms
+error | 01-03-2024 10:02:10 | Error User Dao Mongo: Operation `users.findOne()` buffering timed out after 10000ms
+error | 01-03-2024 10:02:10 | Error User Dao Mongo: Operation `users.findOne()` buffering timed out after 10000ms
+error | 01-03-2024 10:02:10 | Error User Services: Operation `users.findOne()` buffering timed out after 10000ms
+error | 01-03-2024 10:18:01 | Error User Dao Mongo: Operation `users.findOne()` buffering timed out after 10000ms
+error | 01-03-2024 10:18:01 | Error User Dao Mongo: Operation `users.findOne()` buffering timed out after 10000ms
+error | 01-03-2024 10:18:01 | Error User Services: Operation `users.findOne()` buffering timed out after 10000ms
+error | 01-03-2024 10:23:50 | Error User Dao Mongo: Operation `users.findOne()` buffering timed out after 10000ms
+error | 01-03-2024 10:23:50 | Error User Dao Mongo: Operation `users.findOne()` buffering timed out after 10000ms
+error | 01-03-2024 10:23:50 | Error User Services: Operation `users.findOne()` buffering timed out after 10000ms
+error | 01-03-2024 10:38:38 | Error User Dao Mongo: Operation `users.findOne()` buffering timed out after 10000ms
+error | 01-03-2024 10:38:38 | Error User Dao Mongo: Operation `users.findOne()` buffering timed out after 10000ms
+error | 01-03-2024 10:38:38 | Error User Services: Operation `users.findOne()` buffering timed out after 10000ms
+error | 01-04-2024 11:19:25 | Error User Dao Mongo: Operation `users.findOne()` buffering timed out after 10000ms
+error | 01-04-2024 11:19:25 | Error User Dao Mongo: Operation `users.findOne()` buffering timed out after 10000ms
+error | 01-04-2024 11:19:25 | Error User Services: Operation `users.findOne()` buffering timed out after 10000ms
+error | 01-04-2024 11:21:12 | Error User Dao Mongo: Operation `users.findOne()` buffering timed out after 10000ms
+error | 01-04-2024 11:21:12 | Error User Dao Mongo: Operation `users.findOne()` buffering timed out after 10000ms
+error | 01-04-2024 11:21:12 | Error User Services: Operation `users.findOne()` buffering timed out after 10000ms
+error | 01-04-2024 11:27:37 | Error User Dao Mongo: Operation `users.findOne()` buffering timed out after 10000ms
+error | 01-04-2024 11:27:37 | Error User Dao Mongo: Operation `users.findOne()` buffering timed out after 10000ms
+error | 01-04-2024 11:27:37 | Error User Services: Operation `users.findOne()` buffering timed out after 10000ms
+error | 01-04-2024 11:29:27 | Error User Dao Mongo: Operation `users.findOne()` buffering timed out after 10000ms
+error | 01-04-2024 11:29:27 | Error User Dao Mongo: Operation `users.findOne()` buffering timed out after 10000ms
+error | 01-04-2024 11:29:27 | Error User Services: Operation `users.findOne()` buffering timed out after 10000ms
+error | 01-04-2024 11:31:04 | Error User Dao Mongo: Operation `users.findOne()` buffering timed out after 10000ms
+error | 01-04-2024 11:31:04 | Error User Dao Mongo: Operation `users.findOne()` buffering timed out after 10000ms
+error | 01-04-2024 11:31:04 | Error User Services: Operation `users.findOne()` buffering timed out after 10000ms
+error | 01-04-2024 11:32:22 | Error User Dao Mongo: Operation `users.findOne()` buffering timed out after 10000ms
+error | 01-04-2024 11:32:22 | Error User Dao Mongo: Operation `users.findOne()` buffering timed out after 10000ms
+error | 01-04-2024 11:32:22 | Error User Services: Operation `users.findOne()` buffering timed out after 10000ms
+error | 01-04-2024 11:36:37 | Error User Dao Mongo: Operation `users.findOne()` buffering timed out after 10000ms
+error | 01-04-2024 11:36:37 | Error User Dao Mongo: Operation `users.findOne()` buffering timed out after 10000ms
+error | 01-04-2024 11:36:37 | Error User Services: Operation `users.findOne()` buffering timed out after 10000ms
+error | 01-04-2024 11:37:33 | Error User Dao Mongo: Operation `users.findOne()` buffering timed out after 10000ms
+error | 01-04-2024 11:37:33 | Error User Dao Mongo: Operation `users.findOne()` buffering timed out after 10000ms
+error | 01-04-2024 11:37:33 | Error User Services: Operation `users.findOne()` buffering timed out after 10000ms
+error | 01-04-2024 11:52:21 | Error User Dao Mongo: Operation `users.findOne()` buffering timed out after 10000ms
+error | 01-04-2024 11:52:21 | Error User Dao Mongo: Operation `users.findOne()` buffering timed out after 10000ms
+error | 01-04-2024 11:52:21 | Error User Services: Operation `users.findOne()` buffering timed out after 10000ms
+error | 01-04-2024 11:54:31 | Error User Dao Mongo: Parameter "filter" to findOne() must be an object, got "asdf@asdf.com" (type string)
+error | 01-04-2024 11:54:31 | Error User Dao Mongo: Parameter "filter" to findOne() must be an object, got "asdf@asdf.com" (type string)
+error | 01-04-2024 11:54:31 | Error User Services: Parameter "filter" to findOne() must be an object, got "asdf@asdf.com" (type string)
+error | 01-04-2024 11:55:46 | Error User Dao Mongo: Operation `users.findOne()` buffering timed out after 10000ms
+error | 01-04-2024 11:55:46 | Error User Dao Mongo: Operation `users.findOne()` buffering timed out after 10000ms
+error | 01-04-2024 11:55:46 | Error User Services: Operation `users.findOne()` buffering timed out after 10000ms
+error | 01-04-2024 12:04:00 | Error User Dao Mongo: Operation `users.findOne()` buffering timed out after 10000ms
+error | 01-04-2024 12:04:00 | Error User Dao Mongo: Operation `users.findOne()` buffering timed out after 10000ms
+error | 01-04-2024 12:04:00 | Error User Services: Operation `users.findOne()` buffering timed out after 10000ms
+error | 01-04-2024 13:28:22 | Error User Dao Mongo: Operation `users.findOne()` buffering timed out after 10000ms
+error | 01-04-2024 13:28:22 | Error User Dao Mongo: Operation `users.findOne()` buffering timed out after 10000ms
+error | 01-04-2024 13:28:22 | Error User Services: Operation `users.findOne()` buffering timed out after 10000ms
+error | 01-04-2024 13:33:17 | Error User Dao Mongo: Operation `users.findOne()` buffering timed out after 10000ms
+error | 01-04-2024 13:33:17 | Error User Dao Mongo: Operation `users.findOne()` buffering timed out after 10000ms
+error | 01-04-2024 13:33:17 | Error User Services: Operation `users.findOne()` buffering timed out after 10000ms
+error | 01-04-2024 13:36:28 | Error User Dao Mongo: Operation `users.findOne()` buffering timed out after 10000ms
+error | 01-04-2024 13:36:28 | Error User Dao Mongo: Operation `users.findOne()` buffering timed out after 10000ms
+error | 01-04-2024 13:36:28 | Error User Services: Operation `users.findOne()` buffering timed out after 10000ms
+error | 01-04-2024 13:38:13 | Error User Dao Mongo: Operation `users.findOne()` buffering timed out after 10000ms
+error | 01-04-2024 13:38:13 | Error User Dao Mongo: Operation `users.findOne()` buffering timed out after 10000ms
+error | 01-04-2024 13:38:13 | Error User Services: Operation `users.findOne()` buffering timed out after 10000ms
+error | 01-04-2024 13:39:24 | Error User Dao Mongo: Operation `users.findOne()` buffering timed out after 10000ms
+error | 01-04-2024 13:42:33 | Error User Dao Mongo: Operation `users.findOne()` buffering timed out after 10000ms
+error | 01-04-2024 13:42:33 | Error User Dao Mongo: Operation `users.findOne()` buffering timed out after 10000ms
+error | 01-04-2024 13:42:33 | Error User Services: Operation `users.findOne()` buffering timed out after 10000ms
+error | 01-04-2024 13:43:50 | Error User Dao Mongo: Operation `users.findOne()` buffering timed out after 10000ms
+error | 01-04-2024 13:43:50 | Error User Dao Mongo: Operation `users.findOne()` buffering timed out after 10000ms
+error | 01-04-2024 13:43:50 | Error User Services: Operation `users.findOne()` buffering timed out after 10000ms
+error | 01-04-2024 13:44:42 | Error User Dao Mongo: Operation `users.findOne()` buffering timed out after 10000ms
+error | 01-04-2024 13:44:42 | Error User Dao Mongo: Operation `users.findOne()` buffering timed out after 10000ms
+error | 01-04-2024 13:44:42 | Error User Services: Operation `users.findOne()` buffering timed out after 10000ms
+error | 01-04-2024 13:46:49 | Error User Dao Mongo: Operation `users.findOne()` buffering timed out after 10000ms
+error | 01-04-2024 13:49:02 | Error User Dao Mongo: Operation `users.findOne()` buffering timed out after 10000ms
+error | 01-04-2024 13:49:02 | Error User Dao Mongo: Operation `users.findOne()` buffering timed out after 10000ms
+error | 01-04-2024 13:49:02 | Error User Services: Operation `users.findOne()` buffering timed out after 10000ms
+error | 01-04-2024 13:55:40 | Error User Dao Mongo: Operation `users.findOne()` buffering timed out after 10000ms
+error | 01-04-2024 13:55:40 | Error User Dao Mongo: Operation `users.findOne()` buffering timed out after 10000ms
+error | 01-04-2024 13:55:40 | Error User Services: Operation `users.findOne()` buffering timed out after 10000ms
+error | 01-04-2024 13:56:51 | Error User Dao Mongo: Operation `users.findOne()` buffering timed out after 10000ms
+error | 01-04-2024 13:56:51 | Error User Dao Mongo: Operation `users.findOne()` buffering timed out after 10000ms
+error | 01-04-2024 13:56:51 | Error User Services: Operation `users.findOne()` buffering timed out after 10000ms
+error | 01-04-2024 13:59:59 | Error User Dao Mongo: Operation `users.findOne()` buffering timed out after 10000ms
+error | 01-04-2024 13:59:59 | Error User Dao Mongo: Operation `users.findOne()` buffering timed out after 10000ms
+error | 01-04-2024 13:59:59 | Error User Services: Operation `users.findOne()` buffering timed out after 10000ms
+error | 01-04-2024 14:03:55 | Error User Dao Mongo: Operation `users.findOne()` buffering timed out after 10000ms
+error | 01-04-2024 14:03:55 | Error User Dao Mongo: Operation `users.findOne()` buffering timed out after 10000ms
+error | 01-04-2024 14:03:55 | Error User Services: Operation `users.findOne()` buffering timed out after 10000ms
+error | 01-04-2024 14:09:28 | Error User Dao Mongo: Operation `users.findOne()` buffering timed out after 10000ms
+error | 01-04-2024 14:09:28 | Error User Dao Mongo: Operation `users.findOne()` buffering timed out after 10000ms
+error | 01-04-2024 14:09:28 | Error User Services: Operation `users.findOne()` buffering timed out after 10000ms
+error | 01-04-2024 22:47:07 | Error User Dao Mongo: Operation `users.findOne()` buffering timed out after 10000ms
+error | 01-04-2024 22:47:07 | Error User Dao Mongo: Operation `users.findOne()` buffering timed out after 10000ms
+error | 01-04-2024 22:47:07 | Error User Services: Operation `users.findOne()` buffering timed out after 10000ms
+error | 01-08-2024 17:56:09 | Error User Dao Mongo: Operation `users.findOne()` buffering timed out after 10000ms
+error | 01-08-2024 17:56:09 | Error User Dao Mongo: Operation `users.findOne()` buffering timed out after 10000ms
+error | 01-08-2024 17:56:09 | Error User Services: Operation `users.findOne()` buffering timed out after 10000ms
+error | 01-08-2024 18:04:40 | Error User Dao Mongo: Cannot read properties of undefined (reading 'findOne')
+error | 01-08-2024 18:04:40 | Error User Dao Mongo: Cannot read properties of undefined (reading 'findOne')
+error | 01-08-2024 18:04:40 | Error User Services: Cannot read properties of undefined (reading 'findOne')
+error | 01-08-2024 18:05:19 | Error User Dao Mongo: Cannot read properties of undefined (reading 'findOne')
+error | 01-08-2024 18:05:19 | Error User Dao Mongo: Cannot read properties of undefined (reading 'findOne')
+error | 01-08-2024 18:05:19 | Error User Services: Cannot read properties of undefined (reading 'findOne')
+error | 01-08-2024 18:07:23 | Error User Dao Mongo: Operation `users.findOne()` buffering timed out after 10000ms
+error | 01-08-2024 18:07:23 | Error User Dao Mongo: Operation `users.findOne()` buffering timed out after 10000ms
+error | 01-08-2024 18:07:23 | Error User Services: Operation `users.findOne()` buffering timed out after 10000ms

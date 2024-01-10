@@ -15,9 +15,10 @@ import userRouter from './routes/userRoutes.js';
 import apiRouter from './routes/index.js';
 import passport from 'passport';
 import 'dotenv/config'
+import config from './utils/config.js'
 
 // Constantes
-const PORT = process.env.PORT;
+const PORT = config.server.PORT;
 const PUBLIC_DIR = __dirname + '/public';
 const VIEWS_DIR = __dirname + '/views';
 

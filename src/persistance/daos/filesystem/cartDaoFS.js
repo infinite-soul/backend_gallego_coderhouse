@@ -1,7 +1,7 @@
 import fs from 'fs/promises';
 import { __dirname } from '../../../utils.js';
 const pathFile = __dirname+'/db/carts.json';
-import { logger } from "../utils/logger.js";
+import { logger } from "../../../utils/logger.js";
 
 const logError = (error) => {
   logger.error ('Error Cart Dao:', error);

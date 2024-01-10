@@ -19,7 +19,7 @@ const strategyOptions = {
   clientSecret: process.env.GITHUB_STRATEGY_CLIENT_SECRET,
   callbackURL: process.env.GITHUB_STRATEGY_CALLBACK_URL,
   passReqToCallback: true,
-  scope: "user:email"
+  scope: "users:email"
 };
 
 const registerOrLogin = async (req, accessToken, refreshToken, profile, done) => {
@@ -30,14 +30,14 @@ const registerOrLogin = async (req, accessToken, refreshToken, profile, done) =>
 
     if (!email) return done(null, false);
 
-    const user = await getUserByEmail(email);
+    const users = await getUserByEmail(email);
 
-    if (user) {
+    if (users) {
       const token = await loginUserServices({ email, password });
 
       if (!token) return httpResponse.Unauthorized(res, error.USER.CREDENTIALS);
 
-      return done(null, user);
+      return done(null, users);
     }
 
     const newUser = await registerUser({

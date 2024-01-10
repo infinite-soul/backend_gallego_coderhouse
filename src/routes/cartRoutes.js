@@ -2,28 +2,28 @@ import { Router } from 'express';
 import * as controller from '../controllers/cartControllers.js';
 import passport from 'passport';
 
-const router = Router();
+const cartRouter = Router();
 
-router.use(passport.authenticate("jwt"));
+cartRouter.use(passport.authenticate("jwt"));
 
-router.route('/:id/purchase')
+cartRouter.route('/:id/purchase')
   .post(controller.generateOrder);
 
-router.route('/purchase')
+cartRouter.route('/purchase')
   .post(controller.generateOrder);
 
-router.route('/:id/prod/:productId')
+cartRouter.route('/:id/prod/:productId')
   .post(controller.saveProductToCart)
   .delete(controller.deleteProductInCart)
   .put(controller.updateQuantityInCart);
 
-router.route('/:id')
+cartRouter.route('/:id')
   .get(controller.getCartById)
   .post(controller.createCart)
   .delete(controller.cleanCart)
   .put(controller.updateCart);
 
-router.route('/')
+cartRouter.route('/')
   .get(controller.getCart);
 
-export default router;
+export default cartRouter;

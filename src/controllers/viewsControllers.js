@@ -46,8 +46,8 @@ export const current = async (req, res, next) => {
     const userExists = req.session;
 
     if (userExists) {
-      const userID = await getUserByID(req.session.passport.user);
-      const user = userID.toObject();
+      const userID = await getUserByID(req.session.passport.users);
+      const users = userID.toObject();
       res.render("current", { user });
     } else {
       res.redirect("/login"); 

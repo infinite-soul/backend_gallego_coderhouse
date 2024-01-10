@@ -5,19 +5,19 @@ import { getproductPaginate } from "../controllers/productControllers.js";
 import passport from "passport";
 
 
-const router = Router();
+const viewsRouter = Router();
 
-router.get('/chat', (req, res) => {
+viewsRouter.get('/chat', (req, res) => {
     res.render('chat')
 });
 
 
-router.get('/register', register);
-router.get('/error-register', errorRegister);
-router.get('/login', login);
-router.get('/error-login', errorLogin);
-router.get('/logout', logoutUserC);
+viewsRouter.get('/register', register);
+viewsRouter.get('/error-register', errorRegister);
+viewsRouter.get('/login', login);
+viewsRouter.get('/error-login', errorLogin);
+viewsRouter.get('/logout', logoutUserC);
 
-router.get('/products',  passport.authenticate("jwt") , getproductPaginate);
+viewsRouter.get('/products',  passport.authenticate("jwt") , getproductPaginate);
 
-export default router;
+export default viewsRouter;

@@ -69,8 +69,8 @@ export const getproductPaginate = async (req, res, next) => {
 
     const baseUrl = "http://localhost:8080/products";
     const paginationLinks = buildPaginationLinks(response, baseUrl);
-    const userPrev = req.user;
-    const user = userPrev.toObject();
+    const userPrev = req.users;
+    const users = userPrev.toObject();
 
     res.status(200).render("products", {
       productsMap: response.docs.map((product) => product.toObject()),
@@ -82,7 +82,7 @@ export const getproductPaginate = async (req, res, next) => {
       hasNextPage: paginationLinks.existHasNextPage,
       nextPage: paginationLinks.nextPage,
       prevPage: paginationLinks.prevPage,
-      user,
+      users,
     });
   } catch (error) {
     next(error.message);

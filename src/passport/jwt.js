@@ -18,8 +18,8 @@ const strategyOptions = {
 
 const verifyToken = async (jwtPayload, done) => {
   try {
-    const user = await getUserByID(jwtPayload.userId);
-    return user ? done(null, user) : done(null, false);
+    const users = await getUserByID(jwtPayload.userId);
+    return users ? done(null, users) : done(null, false);
   } catch (error) {
     logError(error);
   }
@@ -27,14 +27,14 @@ const verifyToken = async (jwtPayload, done) => {
 
 passport.use('jwt', new JwtStrategy(strategyOptions, verifyToken));
 
-passport.serializeUser((user, done) => {
-  done(null, user._id);
+passport.serializeUser((users, done) => {
+  done(null, users._id);
 });
 
 passport.deserializeUser(async (id, done) => {
   try {
-    const user = await getUserByID(id);
-    return user ? done(null, user) : done(null, false);
+    const users = await getUserByID(id);
+    return users ? done(null, users) : done(null, false);
   } catch (error) {
     logError(error);
   }

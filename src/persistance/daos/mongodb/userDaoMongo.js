@@ -4,15 +4,16 @@ import { UserModel } from "./models/userModel.js";
 import { fakerES_MX as faker } from "@faker-js/faker";
 import { UserModelMocks } from "./models/userModel_Mocks.js";
 import { logger } from '../../../utils/logger.js';
+import mongoose from "mongoose";
 
 
 const logError = (error) => {
-  logger.error ('Error User Dao:', error);
+  logger.error ('Error User Dao Mongo:', error);
   throw error;
 };
 
-const logUserExists = (existUser) => {
-  console.log(`El usuario ${existUser.email} ya existe`);
+const logUserExists = (userExist) => {
+  console.log(`El usuario ${userExist.email} ya existe`);
   return false;
 };
 
@@ -23,24 +24,25 @@ const logUserCreated = (newUser) => {
 
 export const registerUser = async (user) => {
   try {
-    const { email, password } = user;
-    const existUser = await getUserByEmail(email);
+    const { email, password } = users;
+    const userExist = await getUserByEmail(email);
     console.log(email)
-    console.log(user)
-    return existUser ? logUserExists(existUser) : logUserCreated(await createNewUser(user));
+    console.log(users)
+    return userExist ? logUserExists(userExist) : logUserCreated(await createNewUser(users));
   } catch (error) {
     logError(error);
   }
 };
 
-export const loginUser = async (user) => {
+export const loginUser = async (users) => {
   try {
-    const { email, password } = user;
+    const { email, password } = users;
     const userExist = await getUserByEmail(email);
-
+    console.log("pasa por loginUser")
     return userExist ? (isValidPassword(password, userExist) ? userExist : false) : false;
   } catch (error) {
     logError(error);
+    console.log("falla por loginUser")
   }
 };
 
@@ -61,9 +63,11 @@ export const getAll = async () => {
 };
 
 export const getUserByEmail = async (email) => {
+  console.log('getUserByEmail', email)
   try {
-    return await UserModel.findOne({ email }) || false;
+    return await UserModel.findOne( {email} ) || false;
   } catch (error) {
+    console.log('falla por getUserByEmail', UserModel, email, error.message)
     logError(error);
   }
 };

@@ -25,8 +25,8 @@ const strategyOptions = {
 
 const register = async (req, email, password, done) => {
   try {
-    const user = await getUserByEmail(email);
-    if (user) return done(null, false);
+    const users = await getUserByEmail(email);
+    if (users) return done(null, false);
     const newUser = await registerUser(req.body);
     return done(null, newUser);
   } catch (error) {
@@ -59,14 +59,14 @@ const loginStrategy = new LocalStrategy(strategyOptions, login);
 passport.use("login", loginStrategy);
 passport.use("register", registerStrategy);
 
-passport.serializeUser((user, done) => {
+passport.serializeUser((users, done) => {
   done(null, user._id);
 });
 
 passport.deserializeUser(async (id, done) => {
   try {
     const user = await getUserByID(id);
-    return done(null, user);
+    return done(null, users);
   } catch (error) {
     logError(error);
   }

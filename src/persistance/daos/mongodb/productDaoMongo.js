@@ -8,7 +8,7 @@ const DEFAULT_PAGE = 1;
 const DEFAULT_SORT = 1;
 
 const logError = (error) => {
-    logger.error ('Error Product Dao:', error.message);
+    logger.error ('Error Product Dao:', error);
   throw error;
 };
 

@@ -2,12 +2,12 @@ import { Router } from "express";
 import { sendMailEthereal, sendMailGmail } from "../controllers/emailControllers.js";
 import passport from 'passport'
 
-const router = Router();
+const emailRouter = Router();
 
-router.use(passport.authenticate("jwt"));
+emailRouter.use(passport.authenticate("jwt"));
 
-router.post('/ethereal', sendMailEthereal);
+emailRouter.post('/ethereal', sendMailEthereal);
 
-router.post('/gmail', sendMailGmail);
+emailRouter.post('/gmail', sendMailGmail);
 
-export default router;
+export default emailRouter;

@@ -11,22 +11,24 @@ import { logger } from "../utils/logger.js";
 import { UserModel } from "../persistance/daos/mongodb/models/userModel.js";
 
 const handleServiceError = (error) => {
-    logger.error('Error User Services:', error, UserModel);
+    logger.error('Error User Services:', error);
 };
 
-export const registerUserService = async (user) => {
+export const registerUserService = async (users) => {
     try {
-        return await registerUser(user);
+        return await registerUser(users);
     } catch (error) {
         handleServiceError(error);
     }
 };
 
-export const loginUserServices = async (user) => {
+export const loginUserServices = async (users) => {
     try {
-        const userExist = await loginUser(user);
+        console.log('Contenido de users en loginUserService:', users);
+        const userExist = await loginUser(users);
         return userExist ? generateToken(userExist) : false;
     } catch (error) {
+        console.log('Contenido de users en loginUserService en le catch:', users);
         handleServiceError(error);
     }
 };
@@ -53,7 +55,7 @@ export const currentUserResDTOService = async (id) => {
 
 export const createUsersMockService = async (user) => {
     try {
-        return await createUsersMock(user);
+        return await createUsersMock(users);
     } catch (error) {
         handleServiceError(error);
     }

@@ -169,7 +169,7 @@ export const generateOrder = async (userID, cartID) => {
             return {
                 order,
                 productsNotPurchased,
-                user: updatedUser,
+                users: updatedUser,
             };
         } else {
             return {

@@ -3,10 +3,10 @@ import passport from "passport";
 import { login, logoutUserC, current, getAll, createUserMocks, getUsersMocks, loginApi } from "../controllers/userControllers.js";
 import { ckeckAdminRole } from "../middlewares/roleValidator.js";
 
-const router = Router();
+const userRouter = Router();
 
 // Rutas de autenticación
-router.post(
+userRouter.post(
   "/register",
   passport.authenticate("register", {
     successRedirect: "/login",
@@ -15,20 +15,20 @@ router.post(
   })
 );
 
-router.post("/login", login);
-router.post("/loginApi", loginApi);
-router.get("/logout", logoutUserC);
+userRouter.post("/login", login);
+userRouter.post("/loginApi", loginApi);
+userRouter.get("/logout", logoutUserC);
 
 // Rutas protegidas
-router.use(passport.authenticate('jwt'));
+userRouter.use(passport.authenticate('jwt'));
 
-router.get("/current", current);
+userRouter.get("/current", current);
 
 // Verificación de rol de administrador para rutas específicas
-router.use(ckeckAdminRole);
+userRouter.use(ckeckAdminRole);
 
-router.get("/getuser", getAll);
-router.post("/mockingusers", createUserMocks);
-router.get("/get-mockingusers", getUsersMocks);
+userRouter.get("/getuser", getAll);
+userRouter.post("/mockingusers", createUserMocks);
+userRouter.get("/get-mockingusers", getUsersMocks);
 
-export default router;
+export default userRouter;

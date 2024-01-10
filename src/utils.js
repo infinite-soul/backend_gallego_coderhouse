@@ -10,7 +10,7 @@ export const __dirname = dirname(fileURLToPath(import.meta.url));
 // Funciones de manejo de contraseñas
 export const createHash = (password) => hashSync(password, genSaltSync(10));
 
-export const isValidPassword = (password, user) => compareSync(password, user.password);
+export const isValidPassword = (password, users) => compareSync(password, users.password);
 
 // Configuración de opciones para MongoStore
 const secretKey = '1234';

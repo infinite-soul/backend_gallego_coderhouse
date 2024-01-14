@@ -36,9 +36,10 @@ export const registerUser = async (user) => {
 
 export const loginUser = async (users) => {
   try {
+    console.log("pasa por loginUser")
     const { email, password } = users;
     const userExist = await getUserByEmail(email);
-    console.log("pasa por loginUser")
+    
     return userExist ? (isValidPassword(password, userExist) ? userExist : false) : false;
   } catch (error) {
     logError(error);
@@ -65,9 +66,10 @@ export const getAll = async () => {
 export const getUserByEmail = async (email) => {
   console.log('getUserByEmail', email)
   try {
-    return await UserModel.findOne( {email} ) || false;
+    console.log("pasa por el try de getUSerByEmail")
+    return await UserModel.findOne(  {'email': `${email}`}  ) || false;
   } catch (error) {
-    console.log('falla por getUserByEmail', UserModel, email, error.message)
+    console.log('falla por getUserByEmail', 'UserModel:', UserModel, "Email:", email, "Error:", error.message)
     logError(error);
   }
 };

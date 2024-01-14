@@ -8,9 +8,23 @@ import { hashSync, compareSync, genSaltSync } from 'bcrypt';
 export const __dirname = dirname(fileURLToPath(import.meta.url));
 
 // Funciones de manejo de contraseñas
-export const createHash = (password) => hashSync(password, genSaltSync(10));
+// export const createHash = (password) => hashSync(password, genSaltSync(10));
 
-export const isValidPassword = (password, users) => compareSync(password, users.password);
+// export const isValidPassword = (password, users) => compareSync(password, users.password);
+
+// Funciones de manejo de contraseñas
+export const createHash = (password) => {
+    const hashedPassword = hashSync(password, genSaltSync(10));
+    console.log('Hashed Password:', hashedPassword);
+    return hashedPassword;
+};
+
+export const isValidPassword = (password, users) => {
+    const isPasswordValid = compareSync(password, users.password);
+    console.log('Is Password Valid:', isPasswordValid);
+    return isPasswordValid;
+};
+
 
 // Configuración de opciones para MongoStore
 const secretKey = '1234';

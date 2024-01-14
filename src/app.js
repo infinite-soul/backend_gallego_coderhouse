@@ -1,4 +1,4 @@
-import express from 'express';
+import express, {json, urlencoded} from 'express';
 import { __dirname, mongoStoreParameters } from './utils.js';
 import { errorHandler } from './middlewares/errorHandler.js';
 import handlebars from 'express-handlebars';
@@ -16,6 +16,10 @@ import apiRouter from './routes/index.js';
 import passport from 'passport';
 import 'dotenv/config'
 import config from './utils/config.js'
+
+import swaggerUI from 'swagger-ui-express';
+import swaggerJSDoc from 'swagger-jsdoc'; 
+import { info } from './documentacion/info.js'
 
 // Constantes
 const PORT = config.server.PORT;
@@ -42,7 +46,9 @@ app.use(session(mongoStoreParameters));
 app.use(passport.initialize());
 app.use(passport.session());
 
+const specs = swaggerJSDoc(info);
 // Rutas
+app.use('/documentacion', swaggerUI.serve, swaggerUI.setup(specs));
 app.use('/', viewsRouter);
 app.use('/api', apiRouter);
 

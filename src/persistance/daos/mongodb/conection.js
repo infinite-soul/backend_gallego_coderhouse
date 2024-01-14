@@ -11,6 +11,7 @@ const logError = (error) => {
 
 export const conectionMongoose = async () => {
     try {
+        console.log('intentaré conectarme.');
         await connect(connectionString);
         console.log('Conectado a la base de datos MongoDB.');
     } catch (error) {
